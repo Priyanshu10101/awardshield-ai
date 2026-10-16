@@ -11,3 +11,9 @@ output/*.backup-*/
 ui/node_modules/
 ui/dist/
 ui/.angular/
+
+# build specs (kept local)
+engine.md
+redseal.md
+new_backend_changes.md
+AwardShield UI Full Build.md

@@ -1,1 +1,137 @@
-# awardshield-ai
+# AwardShield
+
+**The cheapest bid is not always the cheapest.** AwardShield checks public-tender awards:
+
+- **TrueCost** reads the tender and every bid (PDFs) with Gemini agents and builds each bidder's
+  lifetime cost model: rates, price-adjustment formulas and official price indices, every value with
+  a verbatim quote and page.
+- A **deterministic engine** (plain Python, no AI) projects every bid month by month over the whole
+  contract, applies each bidder's own escalation formula and discounts every payment to today.
+- **RedSeal** then tries to *disprove* the award. AI challengers propose corrections; a deterministic
+  prover verifies each quote in the documents, re-runs the engine and decides the verdict by fixed
+  rules: `CERTIFIED_ROBUST`, `UNDERSTATED` or `OVERTURNED`.
+
+> The AI builds the inputs. Code decides. No model ever types a total, a ranking or the verdict.
+
+Built with **Gemini** and **Google ADK** (SequentialAgent / ParallelAgent agent trees), FastAPI and
+Angular.
+
+## The demo case: IN-CRUT-EBUS
+
+A real public tender (CRUT 1376, Odisha, India): operation of 200 electric buses for 10 + 2 years,
+paid per kilometre. Three synthetic bids respond to it (`generate_bids.py`).
+
+| | GreenMetro | MetroLink | UrbanDrive |
+|---|---|---|---|
+| Quoted rate (₹/km) | 63.00 *(words: "Sixty Six")* | **61.00** | 65.50 |
+| Price indexed to inflation | 36 % | 70 % | 45 % |
+| 12-year cost, today's money | **₹549.02 cr** | ₹562.64 cr | ₹575.23 cr |
+
+1. **On paper** MetroLink is the cheapest.
+2. **TrueCost + engine:** over 12 years MetroLink's price rises fastest, so GreenMetro is ₹13.61 cr cheaper.
+3. **RedSeal:** GreenMetro wrote ₹63.00 in figures but "Sixty Six" in words, and the tender says words
+   prevail. Re-run at ₹66: MetroLink wins (₹562.64 vs ₹575.17 cr). Verdict: **OVERTURNED (contested)**,
+   because another tender clause says the lower amount counts. The buyer must decide before signing.
+
+## Repository layout
+
+```
+awardshield-agent/
+  truecost_ai/        TrueCost: ADK agent tree, runner, finalizer (link checks), settings
+    engine/           the deterministic NPV / award engine (no AI, no network)
+    tests/            engine tests
+  redseal_ai/         RedSeal: challengers, prover, narrator, runner
+    tests/            RedSeal tests
+  api/app.py          FastAPI: case data, live engine what-ifs, serves the built UI
+ui/                   Angular 22 UI (decision brief, evidence, engine, challenges, run replay)
+config/               truecost.json (models, retries, search), buyer_policy.json,
+                      rfp_basis.json (buyer evaluation rules), known_sources.json (official index pages)
+project/IND/          case manifests (tender + bid PDFs per case)
+output/IN-CRUT-EBUS/  results: cost_model.json, proof_pack.json, frozen index series, run recordings
+data/state/           buyer answers (checkpoints are local only)
+generate_bids.py      generates the three synthetic bid PDFs
+```
+
+The results in `output/IN-CRUT-EBUS/` are committed, so the engine, the API and the UI work without
+an API key. The tender and bid PDFs (`assets/`) are not in the repository.
+
+## Setup
+
+Python 3.12+ and, for the UI, Node.js 24.
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install google-adk google-genai pydantic requests pypdf openpyxl python-dotenv truststore \
+            numpy pytest fastapi uvicorn reportlab
+```
+
+Create `.env` in the repository root with a Gemini API key (or set `GOOGLE_CLOUD_PROJECT` to use
+Vertex AI):
+
+```
+GOOGLE_API_KEY=...
+```
+
+Settings live in `config/truecost.json`: the model per step, retries, the web-search tool
+(`google_search`, `enterprise_web_search` or `none`), the default case. An environment variable
+overrides a value for one run (see `truecost_ai/settings.py`).
+
+## Run
+
+From `awardshield-agent/` (with the virtualenv active):
+
+```bash
+# 1. TrueCost - read the PDFs, build the cost models, ask the buyer's open questions (~8 min)
+python -m truecost_ai.runner IN-CRUT-EBUS
+python -m truecost_ai.runner IN-CRUT-EBUS --answers-only   # re-apply stored answers, no PDF reading
+python -m truecost_ai.runner IN-CRUT-EBUS --fresh          # ignore checkpoints, read everything again
+
+# 2. Engine - lifetime cost and winner; what-ifs never change the saved model
+python -m truecost_ai.engine.cli IN-CRUT-EBUS
+python -m truecost_ai.engine.cli IN-CRUT-EBUS --set GreenMetro.gm_rate_1=66 --set discount_rate=0.10
+
+# 3. RedSeal - challenge the award, write proof_pack.json (~1 min)
+python -m redseal_ai.runner IN-CRUT-EBUS
+
+# 4. Tests (engine + RedSeal, no model calls)
+python -m pytest truecost_ai/tests redseal_ai/tests -q
+```
+
+A TrueCost run that stops (rate limit, network) resumes from the last finished step when started
+again. Rate parameter ids (e.g. `gm_rate_1`) are chosen by the model; the engine prints them.
+
+To regenerate the synthetic bids: `python generate_bids.py` (from the repository root).
+
+## UI
+
+```bash
+cd ui && npm install && npx ng build          # once, and after changing UI code
+cd ../awardshield-agent && uvicorn api.app:app --port 8900
+```
+
+Open http://127.0.0.1:8900/. For UI development, `npx ng serve` (in `ui/`) hot-reloads on
+http://localhost:4200 and forwards `/api` to the server on port 8900.
+
+| Page | Shows |
+|---|---|
+| Home | the three steps: price on paper, TrueCost's 12-year cost, RedSeal's catch |
+| Decision | the verdict, what each reading of the tender means for the winner, the bids |
+| TrueCost | every extracted figure with its quote and page; official index sources; buyer questions |
+| Engine | yearly payments and price-adjustment curves; live sliders that re-run the engine |
+| RedSeal | the challenge ledger with evidence and engine re-runs; flip thresholds; sensitivity |
+| Agent run | a time-coded replay of the recorded TrueCost and RedSeal runs |
+
+## API
+
+`uvicorn api.app:app --port 8900` (from `awardshield-agent/`):
+
+| Method | Path | Returns |
+|---|---|---|
+| GET | `/api/cases` | the cases with a cost model |
+| GET | `/api/cases/{id}` | overview: bidders, the three acts, verdict |
+| GET | `/api/cases/{id}/truecost` | volume, supplier records, official indices, report, buyer answers |
+| GET | `/api/cases/{id}/engine` | parameters, rate ids, full engine result, award |
+| POST | `/api/cases/{id}/evaluate` | re-runs the engine with `{"overrides": {...}}` |
+| GET | `/api/cases/{id}/redseal` | the proof pack |
+| GET | `/api/cases/{id}/runs` | recorded agent runs |
+| GET | `/api/cases/{id}/documents/{name}` | one of the case's PDFs |
