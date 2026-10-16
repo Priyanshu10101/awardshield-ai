@@ -17,6 +17,7 @@ from google.adk.runners import InMemoryRunner
 from google.genai import types
 
 from truecost_ai.doc_reader import Case, pack
+from truecost_ai.recorder import Recorder
 from truecost_ai.settings import CASE, OUTPUT_DIR
 
 from .agent import build_root
@@ -30,8 +31,10 @@ async def run(case_id: str, output: str = "") -> dict:
     session = await runner.session_service.create_session(app_name=APP, user_id=USER, state={})
     intro = types.Part(text=f"Tender {case.rfq_id}: {case.title}. Documents follow.")
     t0 = time.time()
+    rec = Recorder("redseal", output or case.rfq_id)  # time-coded events for the UI's run replay
     async for e in runner.run_async(user_id=USER, session_id=session.id,
                                     new_message=types.Content(role="user", parts=[intro, *pack(case.documents)])):
+        rec.event(e)
         if e.is_final_response() and e.content and e.content.parts:  # not the narrator check's state update
             print(f"[{time.time() - t0:5.0f}s] {e.author}: done", flush=True)
 
@@ -40,6 +43,7 @@ async def run(case_id: str, output: str = "") -> dict:
              "challenger_raw": {"extraction": st.get("extraction"), "assumptions": st.get("assumptions")}}
     path = OUTPUT_DIR / (output or case.rfq_id) / "proof_pack.json"
     path.write_text(json.dumps(pack_, indent=1, ensure_ascii=False))
+    rec.save({"verdict": pack_["status"]})
     print_verdict(pack_)
     print(f"\nproof pack: {path} ({time.time() - t0:.0f}s)")
     return pack_

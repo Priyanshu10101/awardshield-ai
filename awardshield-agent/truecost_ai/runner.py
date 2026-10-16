@@ -26,6 +26,7 @@ from google.genai import types
 
 from .agent import bidder_key, build_root, make_orchestrator
 from .checkpoint import RESTORED
+from .recorder import Recorder
 from .doc_reader import Case, docs_hash, pack
 from .finalizer import _slug, make_finalizer
 from .settings import CASE, MAX_QUESTION_ROUNDS, OUTPUT_DIR, STATE_DIR
@@ -99,13 +100,16 @@ def records_from_disk(case: Case) -> dict:
             state[f"{name}_{k}"] = json.loads((folder / f"{name}.json").read_text())
     return state
 
-async def run_tree(agent, state: dict, parts: list[types.Part], t0: float) -> dict:
-    """Run one agent tree in a fresh session; print each sub-agent as it finishes; return the final state."""
+async def run_tree(agent, state: dict, parts: list[types.Part], t0: float, rec: Recorder | None = None) -> dict:
+    """Run one agent tree in a fresh session; print each sub-agent as it finishes; return the final state.
+    rec: a Recorder that keeps a time-coded copy of every event for the UI's run replay."""
     runner = InMemoryRunner(agent=agent, app_name=APP)
     session = await runner.session_service.create_session(app_name=APP, user_id=USER, state=state)
     async for e in runner.run_async(user_id=USER, session_id=session.id,
                                     new_message=types.Content(role="user",
                                     parts=parts)):
+        if rec is not None:
+            rec.event(e)
         if e.is_final_response() and e.content and e.content.parts:
             text = (e.content.parts[0].text or "").strip()
             restored = (e.actions.state_delta or {}).get(RESTORED) == e.author
@@ -147,23 +151,31 @@ async def main(case_id: str, sets: list[str], answers_only: bool, fresh: bool = 
     print(f"{case.rfq_id}: {len(case.documents)} documents, bidders {case.supplier_names}"
           f"{' - answers only, no document reading' if answers_only else ''}",
           flush=True)
+    rec = Recorder("truecost_answers" if answers_only else "truecost", case.rfq_id)
     if answers_only:
         st = await run_tree(build_answers_root(case), {**base, **records_from_disk(case)},
-                            [types.Part(text="Apply the buyer's answers.")], t0)
+                            [types.Part(text="Apply the buyer's answers.")], t0, rec)
     else:
         intro = types.Part(text=f"Tender {case.rfq_id}: {case.title}. Documents follow.")
-        st = await run_tree(build_root(case), base, [intro, *pack(case.documents)], t0)
+        st = await run_tree(build_root(case), base, [intro, *pack(case.documents)], t0, rec)
+    rec.save({"bidders": case.supplier_names})
 
     for _ in range(MAX_QUESTION_ROUNDS):
         print_report(st["report"])
-        new = ask(st["report"]["questions"], answers)
+        questions = st["report"]["questions"]
+        q_path = STATE_DIR / case.rfq_id / "questions.json"  # the open questions, for the UI
+        q_path.parent.mkdir(parents=True, exist_ok=True)
+        q_path.write_text(json.dumps(questions, indent=1, ensure_ascii=False))
+        new = ask(questions, answers)
         if not new:
             break
         answers.update(new)
         save_answers(case, answers)
         print(f"\nAnswers stored in {answers_path(case)} - re-linking the cost models ...", flush=True)
+        rec = Recorder("truecost_answers", case.rfq_id)
         st = await run_tree(build_answers_root(case), {**st, "answers": answers},
-                            [types.Part(text="Apply the buyer's answers.")], t0)
+                            [types.Part(text="Apply the buyer's answers.")], t0, rec)
+        rec.save({"bidders": case.supplier_names})
 
     out = OUTPUT_DIR / case.rfq_id
     (out / "report.json").write_text(json.dumps(st["report"], indent=1, ensure_ascii=False))

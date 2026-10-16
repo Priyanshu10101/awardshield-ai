@@ -1,84 +1,80 @@
 {
- "supplier": "MetroLink Fleet Services Ltd.",
+ "supplier": "GreenMetro Mobility Pvt. Ltd.",
  "terms": [
   {
-   "term_id": "rate_1",
+   "term_id": "gm_rate_1",
    "kind": "unit_rate",
    "label": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m)",
-   "amount": 61.0,
-   "unit": "/ km",
+   "amount": 63.0,
+   "unit": "km",
    "currency": "INR",
-   "text": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) ■61.00 / km",
-   "amount_in_words": "Rupees Sixty One only per kilometre",
+   "text": "Rs 63.00 / km",
+   "amount_in_words": "Rupees Sixty Six only per kilometre",
    "case": "",
    "phase": "",
    "valid_from": "",
    "valid_to": "",
-   "applies_to": "AC MIDI, 9 m buses",
+   "applies_to": "200 x MIDI (9 m) AC electric buses",
    "scope": "line_item",
-   "coverage": "stated",
    "source_kind": "proposal",
    "supersedes": "",
    "evidence": {
-    "document": "Bid1_GreenMetro.pdf",
-    "page": "Page 1",
-    "quote": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) ■61.00 / km | Rupees Sixty One only per kilometre"
+    "document": "BID_1_GreenMetro.pdf",
+    "page": "1",
+    "quote": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) | Rs 63.00 / km | Rupees Sixty Six only per kilometre"
    }
   },
   {
-   "term_id": "validity_1",
-   "kind": "validity",
-   "label": "Bid Validity Period",
-   "amount": 180.0,
-   "unit": "days",
-   "currency": "",
-   "text": "We confirm that the rates quoted are firm except for the price-adjustment mechanism stated in Clause 3 above, and remain valid for 180 days from the Bid Due Date.",
-   "amount_in_words": "",
-   "case": "",
-   "phase": "",
-   "valid_from": "",
-   "valid_to": "",
-   "applies_to": "shared",
-   "coverage": "stated",
-   "source_kind": "proposal",
-   "supersedes": "",
-   "evidence": {
-    "document": "Bid1_GreenMetro.pdf",
-    "page": "Page 2",
-    "quote": "We confirm that the rates quoted are firm except for the price-adjustment mechanism stated in Clause 3 above, and remain valid for 180 days from the Bid Due Date."
-   }
-  },
-  {
-   "term_id": "escalation_1",
+   "term_id": "gm_esc_1",
    "kind": "escalation_timing",
-   "label": "Price Adjustment Frequency",
-   "amount": 6.0,
+   "label": "Fee Revision Frequency",
    "unit": "months",
    "currency": "",
-   "text": "the Quoted Per-Kilometre Rate shall be revised once every six (6) months.",
+   "text": "every six (6) months",
    "amount_in_words": "",
    "case": "",
    "phase": "",
    "valid_from": "",
    "valid_to": "",
-   "applies_to": "shared",
-   "coverage": "stated",
+   "applies_to": "Per-Kilometre Rate",
    "source_kind": "proposal",
    "supersedes": "",
    "evidence": {
-    "document": "Bid1_GreenMetro.pdf",
-    "page": "Page 1",
+    "document": "BID_1_GreenMetro.pdf",
+    "page": "1",
     "quote": "In accordance with Clause 15 of the RFP, the Quoted Per-Kilometre Rate shall be revised once every six (6) months."
    }
   },
   {
-   "term_id": "cost_1",
+   "term_id": "gm_val_1",
+   "kind": "validity",
+   "label": "Proposal Validity",
+   "amount": 180.0,
+   "unit": "days",
+   "currency": "",
+   "text": "remain valid for 180 days from the Bid Due Date",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Proposal",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_1_GreenMetro.pdf",
+    "page": "2",
+    "quote": "We confirm that the rates quoted are firm except for the price-adjustment mechanism stated in Clause 3 above, and remain valid for 180 days from the Bid Due Date."
+   }
+  },
+  {
+   "term_id": "gm_cb_1",
    "kind": "cost_basis",
-   "label": "Electric bus capex (250 kWh)",
-   "amount": 0.92,
+   "label": "Electric bus capex (320 kWh)",
+   "amount": 1.0,
    "unit": "crore / bus",
    "currency": "INR",
-   "text": "Electric bus capex (250 kWh): ■0.92 crore / bus",
+   "text": "Rs 1.00 crore / bus",
    "amount_in_words": "",
    "case": "",
    "phase": "",
@@ -86,23 +82,22 @@
    "valid_to": "",
    "applies_to": "Electric bus capex",
    "scope": "line_item",
-   "coverage": "stated",
    "source_kind": "proposal",
    "supersedes": "",
    "evidence": {
-    "document": "Bid1_GreenMetro.pdf",
-    "page": "Page 2",
-    "quote": "Electric bus capex (250 kWh) | ■0.92 crore / bus | LBNL/WRI (smaller battery)"
+    "document": "BID_1_GreenMetro.pdf",
+    "page": "1",
+    "quote": "Electric bus capex (320 kWh) | Rs 1.00 crore / bus | LBNL/WRI India e-bus TCO"
    }
   },
   {
-   "term_id": "cost_2",
+   "term_id": "gm_cb_2",
    "kind": "cost_basis",
    "label": "Charging electricity tariff",
-   "amount": 6.0,
-   "unit": "/ kWh",
+   "amount": 5.5,
+   "unit": "kWh",
    "currency": "INR",
-   "text": "Charging electricity tariff: ■6.00 / kWh",
+   "text": "Rs 5.50 / kWh",
    "amount_in_words": "",
    "case": "",
    "phase": "",
@@ -110,23 +105,22 @@
    "valid_to": "",
    "applies_to": "Charging electricity tariff",
    "scope": "line_item",
-   "coverage": "stated",
    "source_kind": "proposal",
    "supersedes": "",
    "evidence": {
-    "document": "Bid1_GreenMetro.pdf",
-    "page": "Page 2",
-    "quote": "Charging electricity tariff | ■6.00 / kWh | CESL multi-city benchmark"
+    "document": "BID_1_GreenMetro.pdf",
+    "page": "1",
+    "quote": "Charging electricity tariff | Rs 5.50 / kWh | CESL Delhi benchmark"
    }
   },
   {
-   "term_id": "cost_3",
+   "term_id": "gm_cb_3",
    "kind": "cost_basis",
    "label": "Energy consumption",
-   "amount": 0.85,
+   "amount": 0.8,
    "unit": "kWh / km",
    "currency": "",
-   "text": "Energy consumption: 0.85 kWh / km",
+   "text": "0.80 kWh / km",
    "amount_in_words": "",
    "case": "",
    "phase": "",
@@ -134,22 +128,21 @@
    "valid_to": "",
    "applies_to": "Energy consumption",
    "scope": "line_item",
-   "coverage": "stated",
    "source_kind": "proposal",
    "supersedes": "",
    "evidence": {
-    "document": "Bid1_GreenMetro.pdf",
-    "page": "Page 2",
-    "quote": "Energy consumption | 0.85 kWh / km | ICCT BMTC range"
+    "document": "BID_1_GreenMetro.pdf",
+    "page": "1",
+    "quote": "Energy consumption | 0.80 kWh / km | ICCT BMTC median"
    }
   },
   {
-   "term_id": "cost_4",
+   "term_id": "gm_cb_4",
    "kind": "cost_basis",
    "label": "Battery replacement",
    "unit": "",
    "currency": "",
-   "text": "Once, end of year 6",
+   "text": "once, end of year 7",
    "amount_in_words": "",
    "case": "",
    "phase": "",
@@ -157,23 +150,22 @@
    "valid_to": "",
    "applies_to": "Battery replacement",
    "scope": "line_item",
-   "coverage": "stated",
    "source_kind": "proposal",
    "supersedes": "",
    "evidence": {
-    "document": "Bid1_GreenMetro.pdf",
-    "page": "Page 2",
-    "quote": "Battery replacement | Once, end of year 6 | Shorter-cycle assumption"
+    "document": "BID_1_GreenMetro.pdf",
+    "page": "1",
+    "quote": "Battery replacement | once, end of year 7 | LBNL assumption"
    }
   },
   {
-   "term_id": "cost_5",
+   "term_id": "gm_cb_5",
    "kind": "cost_basis",
    "label": "Maintenance",
-   "amount": 4.2,
-   "unit": "/ km",
+   "amount": 4.0,
+   "unit": "km",
    "currency": "INR",
-   "text": "Maintenance: ■4.20 / km",
+   "text": "Rs 4.00 / km",
    "amount_in_words": "",
    "case": "",
    "phase": "",
@@ -181,35 +173,12 @@
    "valid_to": "",
    "applies_to": "Maintenance",
    "scope": "line_item",
-   "coverage": "stated",
    "source_kind": "proposal",
    "supersedes": "",
    "evidence": {
-    "document": "Bid1_GreenMetro.pdf",
-    "page": "Page 2",
-    "quote": "Maintenance | ■4.20 / km | LBNL BEB maintenance"
-   }
-  },
-  {
-   "term_id": "inclusion_1",
-   "kind": "inclusion",
-   "label": "Electricity cost inclusion",
-   "unit": "",
-   "currency": "",
-   "text": "All figures are inclusive of charging electricity cost borne by the Operator, subject to the tariff pass-through and permissible kWh/km as per the RFP.",
-   "amount_in_words": "",
-   "case": "",
-   "phase": "",
-   "valid_from": "",
-   "valid_to": "",
-   "applies_to": "shared",
-   "coverage": "included_in",
-   "source_kind": "proposal",
-   "supersedes": "",
-   "evidence": {
-    "document": "Bid1_GreenMetro.pdf",
-    "page": "Page 2",
-    "quote": "All figures are inclusive of charging electricity cost borne by the Operator, subject to the tariff pass-through and permissible kWh/km as per the RFP."
+    "document": "BID_1_GreenMetro.pdf",
+    "page": "1",
+    "quote": "Maintenance | Rs 4.00 / km | LBNL BEB maintenance"
    }
   }
  ],
@@ -219,7 +188,21 @@
   "minimum_commitment",
   "power",
   "utility",
-  "capacity"
+  "capacity",
+  "supply_mode",
+  "demand_basis"
  ],
- "open_questions": []
+ "open_questions": [
+  {
+   "key": "greenmetro.currency_words_disagreement",
+   "scope": "supplier",
+   "question": "The quoted per-kilometre rate is given numerically as 'Rs 63.00 / km' but in words as 'Rupees Sixty Six only per kilometre'. Which rate should be applied?",
+   "options": [
+    "Rs 63.00 / km",
+    "Rs 66.00 / km"
+   ],
+   "suggestion": "Rs 63.00 / km",
+   "why": "There is a direct discrepancy between the numerical figure ('Rs 63.00 / km') and the words ('Rupees Sixty Six only per kilometre') in BID_1_GreenMetro.pdf on page 1."
+  }
+ ]
 }

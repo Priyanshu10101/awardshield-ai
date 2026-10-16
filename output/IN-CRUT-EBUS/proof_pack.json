@@ -1,0 +1,492 @@
+{
+ "rfq_id": "IN-CRUT-EBUS",
+ "status": "OVERTURNED",
+ "contested": true,
+ "original_winner": "GreenMetro",
+ "final_winner": "MetroLink",
+ "baseline": {
+  "label": "BASELINE",
+  "ranking": [
+   [
+    "GreenMetro",
+    549.0226667496014
+   ],
+   [
+    "MetroLink",
+    562.6363082038748
+   ],
+   [
+    "UrbanDrive",
+    575.2330734279941
+   ]
+  ],
+  "winner": "GreenMetro",
+  "margin_cr": 13.61364145427342,
+  "margin_pct": 2.4796137352344214
+ },
+ "challenges": [
+  {
+   "challenge_id": "greenmetro_rate_words",
+   "agent": "extraction_challenger",
+   "kind": "figure_vs_words",
+   "target": "GreenMetro.gm_rate_1",
+   "supplier": "GreenMetro",
+   "original_value": "63",
+   "corrected_value": "66",
+   "status": "contested",
+   "checks": [
+    "the cost model holds gm_rate_1 = 63",
+    "quote verified in BID_1_GreenMetro.pdf p.1",
+    "quote verified in CRUT_RFP_200_ebus.pdf p.38",
+    "quote verified in CRUT_RFP_200_ebus.pdf p.42",
+    "'Rupees Sixty Six only per kilometre' parses to 66 (independent words-to-number check)",
+    "1 printed clause(s) support the extracted value -> contested"
+   ],
+   "evidence": [
+    {
+     "document": "BID_1_GreenMetro.pdf",
+     "page": "1",
+     "quote": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) | Rs 63.00 / km | Rupees Sixty Six only per kilometre"
+    },
+    {
+     "document": "CRUT_RFP_200_ebus.pdf",
+     "page": "38",
+     "quote": "In case of conflict between amounts stated in figures and words, the amount stated in words will be taken as correct."
+    },
+    {
+     "document": "CRUT_RFP_200_ebus.pdf",
+     "page": "42",
+     "quote": "In the course of evaluation, if the Authority finds a discrepancy between words and figures quoted, then the amount written in words shall prevail."
+    }
+   ],
+   "evidence_against": [
+    {
+     "document": "BID_1_GreenMetro.pdf",
+     "page": "1",
+     "quote": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) | Rs 63.00 / km"
+    }
+   ],
+   "reasoning": "GreenMetro quoted its per-kilometre gross cost rate as Rs 63.00 in figures but as 'Rupees Sixty Six only per kilometre' in words. In accordance with RFP Clause 18(v) and Clause 20.5(vii), the amount stated in words must prevail, yielding a corrected rate of 66.0.",
+   "overrides": {
+    "GreenMetro.gm_rate_1": 66.0
+   },
+   "rerun": {
+    "label": "greenmetro_rate_words",
+    "ranking": [
+     [
+      "MetroLink",
+      562.6363082038748
+     ],
+     [
+      "GreenMetro",
+      575.1666032614871
+     ],
+     [
+      "UrbanDrive",
+      575.2330734279941
+     ]
+    ],
+    "winner": "MetroLink",
+    "margin_cr": 12.530295057612307,
+    "margin_pct": 2.2270683343585205
+   },
+   "effect": "award flips: MetroLink becomes L1 at 562.64 Cr, GreenMetro falls to 575.17 Cr"
+  },
+  {
+   "challenge_id": "CH_DISCOUNT_RATE",
+   "agent": "assumption_challenger",
+   "kind": "discount_rate",
+   "target": "discount_rate",
+   "supplier": "",
+   "original_value": "0.12",
+   "corrected_value": "0.1",
+   "status": "verified",
+   "checks": [
+    "rule taken from the buyer's evaluation rules (config/rfp_basis.json)",
+    "discount rate 0.12 -> 0.1"
+   ],
+   "evidence": [
+    {
+     "document": "buyer_rules",
+     "quote": "discount_rate: 0.1"
+    }
+   ],
+   "evidence_against": [],
+   "reasoning": "The cost model uses a discount rate of 0.12 per annum as per company policy, whereas the buyer's evaluation rules prescribe a discount rate of 0.1.",
+   "overrides": {
+    "discount_rate": 0.1
+   },
+   "rerun": {
+    "label": "CH_DISCOUNT_RATE",
+    "ranking": [
+     [
+      "GreenMetro",
+      599.6026993979239
+     ],
+     [
+      "MetroLink",
+      615.8826274809261
+     ],
+     [
+      "UrbanDrive",
+      628.4278247882002
+     ]
+    ],
+    "winner": "GreenMetro",
+    "margin_cr": 16.279928083002233,
+    "margin_pct": 2.7151192113293217
+   },
+   "effect": "GreenMetro stays L1; its lifetime NPV moves +50.58 Cr (+9.2%); margin 13.61 -> 16.28 Cr"
+  },
+  {
+   "challenge_id": "CH_INDEX_WINDOW",
+   "agent": "assumption_challenger",
+   "kind": "index_window",
+   "target": "index_window",
+   "supplier": "",
+   "original_value": "3",
+   "corrected_value": "5",
+   "status": "verified",
+   "checks": [
+    "rule taken from the buyer's evaluation rules (config/rfp_basis.json)",
+    "index window -> 5 years"
+   ],
+   "evidence": [
+    {
+     "document": "buyer_rules",
+     "quote": "index_method: {'method': 'mean_yoy', 'years': 5}"
+    }
+   ],
+   "evidence_against": [],
+   "reasoning": "The cost model uses an index window of 3 years based on company defaults, but the buyer's evaluation rules explicitly require a 5-year mean YoY window.",
+   "overrides": {
+    "__index_all__": {
+     "method": "mean_yoy",
+     "years": 5
+    }
+   },
+   "rerun": {
+    "label": "CH_INDEX_WINDOW",
+    "ranking": [
+     [
+      "GreenMetro",
+      586.9384508798148
+     ],
+     [
+      "MetroLink",
+      613.8075306515327
+     ],
+     [
+      "UrbanDrive",
+      623.7283209429859
+     ]
+    ],
+    "winner": "GreenMetro",
+    "margin_cr": 26.869079771717907,
+    "margin_pct": 4.577836011841008
+   },
+   "effect": "GreenMetro stays L1; its lifetime NPV moves +37.92 Cr (+6.9%); margin 13.61 -> 26.87 Cr"
+  },
+  {
+   "challenge_id": "CH_CONTRACT_MONTHS",
+   "agent": "assumption_challenger",
+   "kind": "contract_months",
+   "target": "contract_months",
+   "supplier": "",
+   "original_value": "144.0",
+   "corrected_value": "120.0",
+   "status": "verified",
+   "checks": [
+    "rule verified in the tender text",
+    "contract term -> 120 months"
+   ],
+   "evidence": [
+    {
+     "document": "CRUT_RFP_200_ebus.pdf",
+     "quote": "The contract will be awarded on a Gross Cost Contract (GCC) basis for a period of 10 years, with an option to extend for an additional 2 years."
+    }
+   ],
+   "evidence_against": [],
+   "reasoning": "The company policy evaluates on the longest allowed term including options (144 months), but the tender firm commitment is strictly 10 years (120 months) since the extension is solely at the authority's discretion.",
+   "overrides": {
+    "horizon_months": 120
+   },
+   "rerun": {
+    "label": "CH_CONTRACT_MONTHS",
+    "ranking": [
+     [
+      "GreenMetro",
+      498.8259448846342
+     ],
+     [
+      "MetroLink",
+      507.47524721590383
+     ],
+     [
+      "UrbanDrive",
+      522.1153461714468
+     ]
+    ],
+    "winner": "GreenMetro",
+    "margin_cr": 8.64930233126961,
+    "margin_pct": 1.733931929557107
+   },
+   "effect": "GreenMetro stays L1; its lifetime NPV moves -50.20 Cr (-9.1%); margin 13.61 -> 8.65 Cr"
+  },
+  {
+   "challenge_id": "CH_AWARD_METRIC",
+   "agent": "assumption_challenger",
+   "kind": "award_metric",
+   "target": "award_metric",
+   "supplier": "",
+   "original_value": "lifetime escalated NPV",
+   "corrected_value": "year_one",
+   "status": "finding",
+   "checks": [
+    "rule verified in the tender text",
+    "the award metric is not an engine input: reported as a finding"
+   ],
+   "evidence": [
+    {
+     "document": "CRUT_RFP_200_ebus.pdf",
+     "quote": "The bidding parameter shall be “Aggregate Bus Operation Cost for Year One” for these Package of bus operation. The bidder quoting the lowest “Aggregate Bus Operation Cost for Year one” for these Packages of bus operation and fulfilling the eligibility criteria and responsiveness check shall be the “Preferred Bidder” for these Packages."
+    }
+   ],
+   "evidence_against": [],
+   "reasoning": "The cost model ranks on lifetime escalated NPV, whereas the tender explicitly specifies evaluation and selection based on the lowest aggregate bus operation cost for the first year.",
+   "overrides": {},
+   "rerun": null,
+   "effect": "tender metric (first 12 months of operation): L1 = MetroLink (MetroLink 79.92 Cr, GreenMetro 81.95 Cr, UrbanDrive 85.28 Cr); DIFFERENT from the lifetime winner GreenMetro"
+  },
+  {
+   "challenge_id": "all_assumptions",
+   "agent": "assumption_challenger",
+   "kind": "combined",
+   "target": "evaluation basis",
+   "supplier": "",
+   "original_value": "company policy",
+   "corrected_value": "buyer evaluation rules",
+   "status": "verified",
+   "checks": [
+    "every verified assumption challenge applied together"
+   ],
+   "evidence": [],
+   "evidence_against": [],
+   "reasoning": "",
+   "overrides": {
+    "discount_rate": 0.1,
+    "__index_all__": {
+     "method": "mean_yoy",
+     "years": 5
+    },
+    "horizon_months": 120
+   },
+   "rerun": {
+    "label": "all_assumptions",
+    "ranking": [
+     [
+      "GreenMetro",
+      571.3531868896357
+     ],
+     [
+      "MetroLink",
+      593.0371960570261
+     ],
+     [
+      "UrbanDrive",
+      605.8155011702715
+     ]
+    ],
+    "winner": "GreenMetro",
+    "margin_cr": 21.6840091673904,
+    "margin_pct": 3.795202278547708
+   },
+   "effect": "GreenMetro stays L1; its lifetime NPV moves +22.33 Cr (+4.1%); margin 13.61 -> 21.68 Cr"
+  }
+ ],
+ "flip_thresholds": [
+  {
+   "supplier": "GreenMetro",
+   "param": "gm_rate_1",
+   "current": 63.0,
+   "threshold": 64.5622,
+   "change_pct": 2.48,
+   "against": "MetroLink",
+   "plausible": true
+  },
+  {
+   "supplier": "MetroLink",
+   "param": "rate_ac_midi",
+   "current": 61.0,
+   "threshold": 59.524,
+   "change_pct": -2.42,
+   "against": "GreenMetro",
+   "plausible": true
+  },
+  {
+   "supplier": "UrbanDrive",
+   "param": "unit_rate_1",
+   "current": 65.5,
+   "threshold": 62.5155,
+   "change_pct": -4.56,
+   "against": "GreenMetro",
+   "plausible": true
+  }
+ ],
+ "sensitivity": [
+  {
+   "driver": "discount rate",
+   "low_label": "8 %",
+   "high_label": "14 %",
+   "winner_low": "GreenMetro",
+   "winner_high": "GreenMetro",
+   "swing_cr": -153.13,
+   "flips": false
+  },
+  {
+   "driver": "index growth",
+   "low_label": "-2 pts/yr",
+   "high_label": "+2 pts/yr",
+   "winner_low": "MetroLink",
+   "winner_high": "GreenMetro",
+   "swing_cr": 49.83,
+   "flips": true
+  },
+  {
+   "driver": "demand",
+   "low_label": "-20 %",
+   "high_label": "+20 %",
+   "winner_low": "GreenMetro",
+   "winner_high": "GreenMetro",
+   "swing_cr": 219.61,
+   "flips": false
+  },
+  {
+   "driver": "contract term",
+   "low_label": "120 months",
+   "high_label": "144 months",
+   "winner_low": "GreenMetro",
+   "winner_high": "GreenMetro",
+   "swing_cr": 50.2,
+   "flips": false
+  }
+ ],
+ "fragile": true,
+ "summary": "Baseline: GreenMetro is L1 at 549.02 Cr (margin 13.61 Cr). [contested] greenmetro_rate_words (GreenMetro.gm_rate_1: 63 -> 66): award flips: MetroLink becomes L1 at 562.64 Cr, GreenMetro falls to 575.17 Cr. [verified] CH_DISCOUNT_RATE (discount_rate: 0.12 -> 0.1): GreenMetro stays L1; its lifetime NPV moves +50.58 Cr (+9.2%); margin 13.61 -> 16.28 Cr. [verified] CH_INDEX_WINDOW (index_window: 3 -> 5): GreenMetro stays L1; its lifetime NPV moves +37.92 Cr (+6.9%); margin 13.61 -> 26.87 Cr. [verified] CH_CONTRACT_MONTHS (contract_months: 144.0 -> 120.0): GreenMetro stays L1; its lifetime NPV moves -50.20 Cr (-9.1%); margin 13.61 -> 8.65 Cr. [finding] CH_AWARD_METRIC (award_metric: lifetime escalated NPV -> year_one): tender metric (first 12 months of operation): L1 = MetroLink (MetroLink 79.92 Cr, GreenMetro 81.95 Cr, UrbanDrive 85.28 Cr); DIFFERENT from the lifetime winner GreenMetro. [verified] all_assumptions (evaluation basis: company policy -> buyer evaluation rules): GreenMetro stays L1; its lifetime NPV moves +22.33 Cr (+4.1%); margin 13.61 -> 21.68 Cr. Verdict: OVERTURNED (contested); final winner MetroLink.",
+ "narrative": {
+  "headline": "The audit verdict is overturned with MetroLink as the final winner because the contested rate discrepancy changes the award outcome.",
+  "findings": [
+   "Regarding greenmetro_rate_words, the baseline is contested because the award flips to MetroLink when the rate changes.",
+   "Regarding CH_DISCOUNT_RATE, the verified engine proved GreenMetro stays L1 and its lifetime NPV and margin increase.",
+   "Regarding CH_INDEX_WINDOW, the verified engine proved GreenMetro stays L1 and its lifetime NPV and margin increase.",
+   "Regarding CH_CONTRACT_MONTHS, the verified engine proved GreenMetro stays L1 and its lifetime NPV and margin decrease.",
+   "Regarding CH_AWARD_METRIC, the finding shows the tender metric for the first twelve months of operation names MetroLink as L1, which is different from the lifetime winner GreenMetro.",
+   "Regarding all_assumptions, the verified engine proved GreenMetro stays L1 and its lifetime NPV and margin increase under buyer evaluation rules."
+  ],
+  "recommendation": "The buyer must formally clarify and confirm the correct rate wording and the intended award metric before signing the contract. Resolving these ambiguities will ensure the final award aligns with official policy and undisputed financial figures."
+ },
+ "narrative_check": {
+  "ok": true,
+  "numbers_not_in_proof": []
+ },
+ "challenger_raw": {
+  "extraction": {
+   "challenges": [
+    {
+     "challenge_id": "greenmetro_rate_words",
+     "supplier": "GreenMetro",
+     "param": "gm_rate_1",
+     "kind": "figure_vs_words",
+     "extracted_value": 63.0,
+     "corrected_value": 66.0,
+     "amount_in_words": "Rupees Sixty Six only per kilometre",
+     "evidence_for": [
+      {
+       "document": "BID_1_GreenMetro.pdf",
+       "page": "1",
+       "quote": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) | Rs 63.00 / km | Rupees Sixty Six only per kilometre"
+      },
+      {
+       "document": "CRUT_RFP_200_ebus.pdf",
+       "page": "38",
+       "quote": "In case of conflict between amounts stated in figures and words, the amount stated in words will be taken as correct."
+      },
+      {
+       "document": "CRUT_RFP_200_ebus.pdf",
+       "page": "42",
+       "quote": "In the course of evaluation, if the Authority finds a discrepancy between words and figures quoted, then the amount written in words shall prevail."
+      }
+     ],
+     "evidence_against": [
+      {
+       "document": "BID_1_GreenMetro.pdf",
+       "page": "1",
+       "quote": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) | Rs 63.00 / km"
+      }
+     ],
+     "reasoning": "GreenMetro quoted its per-kilometre gross cost rate as Rs 63.00 in figures but as 'Rupees Sixty Six only per kilometre' in words. In accordance with RFP Clause 18(v) and Clause 20.5(vii), the amount stated in words must prevail, yielding a corrected rate of 66.0."
+    }
+   ],
+   "checked": [
+    "Checked MetroLink's rate_ac_midi: figure of Rs 61.00 / km matches the amount in words 'Rupees Sixty One only per kilometre'.",
+    "Checked UrbanDrive's unit_rate_1: figure of Rs 65.50 / km matches the amount in words 'Rupees Sixty Five and Fifty paise per kilometre'.",
+    "Checked all escalation formulas against bid documents and found no unauthorized weight tampering."
+   ]
+  },
+  "assumptions": {
+   "challenges": [
+    {
+     "challenge_id": "CH_DISCOUNT_RATE",
+     "setting": "discount_rate",
+     "used_value": "0.12",
+     "should_be": "0.1",
+     "rule_source": "buyer_rules",
+     "rule_quote": "discount_rate: 0.1",
+     "rule_document": "",
+     "reasoning": "The cost model uses a discount rate of 0.12 per annum as per company policy, whereas the buyer's evaluation rules prescribe a discount rate of 0.1."
+    },
+    {
+     "challenge_id": "CH_INDEX_WINDOW",
+     "setting": "index_window",
+     "used_value": "3",
+     "should_be": "5",
+     "rule_source": "buyer_rules",
+     "rule_quote": "index_method: {'method': 'mean_yoy', 'years': 5}",
+     "rule_document": "",
+     "reasoning": "The cost model uses an index window of 3 years based on company defaults, but the buyer's evaluation rules explicitly require a 5-year mean YoY window."
+    },
+    {
+     "challenge_id": "CH_CONTRACT_MONTHS",
+     "setting": "contract_months",
+     "used_value": "144.0",
+     "should_be": "120.0",
+     "rule_source": "tender",
+     "rule_quote": "The contract will be awarded on a Gross Cost Contract (GCC) basis for a period of 10 years, with an option to extend for an additional 2 years.",
+     "rule_document": "CRUT_RFP_200_ebus.pdf",
+     "reasoning": "The company policy evaluates on the longest allowed term including options (144 months), but the tender firm commitment is strictly 10 years (120 months) since the extension is solely at the authority's discretion."
+    },
+    {
+     "challenge_id": "CH_AWARD_METRIC",
+     "setting": "award_metric",
+     "used_value": "lifetime escalated NPV",
+     "should_be": "year_one",
+     "rule_source": "tender",
+     "rule_quote": "The bidding parameter shall be “Aggregate Bus Operation Cost for Year One” for these Package of bus operation. The bidder quoting the lowest “Aggregate Bus Operation Cost for Year one” for these Packages of bus operation and fulfilling the eligibility criteria and responsiveness check shall be the “Preferred Bidder” for these Packages.",
+     "rule_document": "CRUT_RFP_200_ebus.pdf",
+     "reasoning": "The cost model ranks on lifetime escalated NPV, whereas the tender explicitly specifies evaluation and selection based on the lowest aggregate bus operation cost for the first year."
+    }
+   ],
+   "checked": [
+    "rfq.contract.start",
+    "rfq.index.base_year",
+    "finance.monthly_rate_method",
+    "calendar.hours_per_month",
+    "volume.buffer_basis",
+    "volume.beyond_schedule",
+    "index.base_year_rule",
+    "utility.escalation_frequency_months",
+    "fx.source"
+   ]
+  }
+ }
+}

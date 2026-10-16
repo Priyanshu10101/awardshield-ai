@@ -1,0 +1,323 @@
+{
+ "run": "truecost",
+ "rfq_id": "IN-CRUT-EBUS",
+ "started_at": "2026-10-16T19:46:47+00:00",
+ "duration_s": 742.2,
+ "events": [
+  {
+   "t": 126.3,
+   "agent": "volume_extractor",
+   "kind": "done",
+   "name": "",
+   "detail": "{\n  \"drivers\": [\n    {\n      \"driver_id\": \"pkg_viii\",\n      \"label\": \"Package VIII: 100 Midi E-buses\",\n      \"billing_unit\": \"per km\",\n      \"components\": [\n        {\n          \"name\": \"Number of Buses\",\n          \"value\": 100,\n          \"unit\": \"buses\",\n     ...",
+   "tokens": 59247
+  },
+  {
+   "t": 141.0,
+   "agent": "commercial_metrolink",
+   "kind": "done",
+   "name": "",
+   "detail": "{\n  \"supplier\": \"MetroLink Fleet Services Ltd.\",\n  \"terms\": [\n    {\n      \"term_id\": \"rate_ac_midi\",\n      \"kind\": \"unit_rate\",\n      \"label\": \"Per-kilometre Gross Cost Rate (AC MIDI, 9 m)\",\n      \"amount\": 61.0,\n      \"unit\": \"km\",\n      \"currency\": \"INR\",\n  ...",
+   "tokens": 62349
+  },
+  {
+   "t": 150.2,
+   "agent": "commercial_greenmetro",
+   "kind": "done",
+   "name": "",
+   "detail": "{\n  \"supplier\": \"GreenMetro Mobility Pvt. Ltd.\",\n  \"terms\": [\n    {\n      \"term_id\": \"gm_rate_1\",\n      \"kind\": \"unit_rate\",\n      \"label\": \"Per-kilometre Gross Cost Rate (AC MIDI, 9 m)\",\n      \"amount\": 63.0,\n      \"unit\": \"km\",\n      \"currency\": \"INR\",\n     ...",
+   "tokens": 62348
+  },
+  {
+   "t": 153.1,
+   "agent": "escalation_metrolink",
+   "kind": "done",
+   "name": "",
+   "detail": "{\n  \"supplier\": \"MetroLink Fleet Services Ltd.\",\n  \"formulae\": [\n    {\n      \"formula_id\": \"rate_adjustment\",\n      \"applies_to\": [\n        \"rate_ac_midi\"\n      ],\n      \"formula_text\": \"Payable Fee = Quoted Rate × [ 0.30 + 0.40 × CPI-IW + 0.20 × WPI + 0.10 × ...",
+   "tokens": 64780
+  },
+  {
+   "t": 175.5,
+   "agent": "escalation_greenmetro",
+   "kind": "done",
+   "name": "",
+   "detail": "{\n  \"supplier\": \"GreenMetro Mobility Pvt. Ltd.\",\n  \"formulae\": [\n    {\n      \"formula_id\": \"gm_formula_1\",\n      \"applies_to\": [\n        \"gm_rate_1\"\n      ],\n      \"formula_text\": \"Payable Fee = Quoted Rate × [ 0.64 + 0.12 × CPI-IW + 0.14 × WPI + 0.10 × Elec ]...",
+   "tokens": 65326
+  },
+  {
+   "t": 190.7,
+   "agent": "index_resolver_metrolink",
+   "kind": "call",
+   "name": "known_source",
+   "detail": "{\"symbol\": \"CPI-IW\", \"name\": \"Consumer Price Index (Industrial Workers)\"}",
+   "tokens": 3095
+  },
+  {
+   "t": 190.7,
+   "agent": "index_resolver_metrolink",
+   "kind": "result",
+   "name": "known_source",
+   "detail": "{\"status\": \"reused\", \"series_key\": \"in_cpi_iw_all_india\", \"summary\": \"2021-2025 (5 years), last 145.7545\"}"
+  },
+  {
+   "t": 194.3,
+   "agent": "index_resolver_metrolink",
+   "kind": "call",
+   "name": "known_source",
+   "detail": "{\"symbol\": \"WPI\", \"name\": \"Wholesale Price Index (All Commodities)\"}",
+   "tokens": 3190
+  },
+  {
+   "t": 194.3,
+   "agent": "index_resolver_metrolink",
+   "kind": "result",
+   "name": "known_source",
+   "detail": "{\"status\": \"reused\", \"series_key\": \"in_wpi_all_commodities\", \"summary\": \"2013-2025 (13 years), last 154.95\"}"
+  },
+  {
+   "t": 196.5,
+   "agent": "index_resolver_greenmetro",
+   "kind": "call",
+   "name": "known_source",
+   "detail": "{\"symbol\": \"CPI-IW\", \"name\": \"Consumer Price Index (IndustrialWorkers)\"}",
+   "tokens": 3136
+  },
+  {
+   "t": 196.5,
+   "agent": "index_resolver_greenmetro",
+   "kind": "result",
+   "name": "known_source",
+   "detail": "{\"status\": \"reused\", \"series_key\": \"in_cpi_iw_all_india\", \"summary\": \"2021-2025 (5 years), last 145.7545\"}"
+  },
+  {
+   "t": 198.4,
+   "agent": "index_resolver_metrolink",
+   "kind": "call",
+   "name": "known_source",
+   "detail": "{\"name\": \"Charging Electricity Tariff\", \"symbol\": \"Elec\"}",
+   "tokens": 3282
+  },
+  {
+   "t": 198.4,
+   "agent": "index_resolver_metrolink",
+   "kind": "result",
+   "name": "known_source",
+   "detail": "{\"status\": \"reused\", \"series_key\": \"in_wpi_electricity\", \"summary\": \"2013-2025 (13 years), last 143.1583\", \"proxy\": \"The state electricity tariff is set by yearly tariff orders and is not published as a series; the offic..."
+  },
+  {
+   "t": 200.3,
+   "agent": "index_resolver_greenmetro",
+   "kind": "call",
+   "name": "known_source",
+   "detail": "{\"symbol\": \"WPI\", \"name\": \"Wholesale Price Index (All Commodities)\"}",
+   "tokens": 3231
+  },
+  {
+   "t": 200.3,
+   "agent": "index_resolver_greenmetro",
+   "kind": "result",
+   "name": "known_source",
+   "detail": "{\"status\": \"reused\", \"series_key\": \"in_wpi_all_commodities\", \"summary\": \"2013-2025 (13 years), last 154.95\"}"
+  },
+  {
+   "t": 205.9,
+   "agent": "index_resolver_metrolink",
+   "kind": "call",
+   "name": "set_model_response",
+   "detail": "{\"resolutions\": [{\"reason\": \"\", \"symbol\": \"CPI-IW\", \"step\": \"reuse\", \"series_key\": \"in_cpi_iw_all_india\", \"status\": \"ok\", \"proxy\": \"\"}, {\"reason\": \"\", \"symbol\": \"WPI\", \"step\": \"reuse\", \"series_key\": \"in_wpi_all_commoditi...",
+   "tokens": 3406
+  },
+  {
+   "t": 205.9,
+   "agent": "index_resolver_metrolink",
+   "kind": "result",
+   "name": "set_model_response",
+   "detail": "{\"resolutions\": [{\"symbol\": \"CPI-IW\", \"status\": \"ok\", \"step\": \"reuse\", \"series_key\": \"in_cpi_iw_all_india\", \"url\": \"\", \"proxy\": \"\", \"reason\": \"\"}, {\"symbol\": \"WPI\", \"status\": \"ok\", \"step\": \"reuse\", \"series_key\": \"in_wpi_..."
+  },
+  {
+   "t": 205.9,
+   "agent": "index_resolver_metrolink",
+   "kind": "done",
+   "name": "",
+   "detail": "{\"resolutions\": [{\"symbol\": \"CPI-IW\", \"status\": \"ok\", \"step\": \"reuse\", \"series_key\": \"in_cpi_iw_all_india\", \"url\": \"\", \"proxy\": \"\", \"reason\": \"\"}, {\"symbol\": \"WPI\", \"status\": \"ok\", \"step\": \"reuse\", \"series_key\": \"in_wpi_all_commodities\", \"url\": \"\", \"proxy\": \"\"..."
+  },
+  {
+   "t": 209.9,
+   "agent": "index_resolver_greenmetro",
+   "kind": "call",
+   "name": "known_source",
+   "detail": "{\"name\": \"Charging Electricity Tariff\", \"symbol\": \"Elec\"}",
+   "tokens": 3323
+  },
+  {
+   "t": 209.9,
+   "agent": "index_resolver_greenmetro",
+   "kind": "result",
+   "name": "known_source",
+   "detail": "{\"status\": \"reused\", \"series_key\": \"in_wpi_electricity\", \"summary\": \"2013-2025 (13 years), last 143.1583\", \"proxy\": \"The state electricity tariff is set by yearly tariff orders and is not published as a series; the offic..."
+  },
+  {
+   "t": 215.4,
+   "agent": "cost_model_metrolink",
+   "kind": "done",
+   "name": "",
+   "detail": "{\n  \"supplier\": \"MetroLink Fleet Services Ltd.\",\n  \"parameters\": [\n    {\n      \"id\": \"rate_ac_midi\",\n      \"value\": 61.0,\n      \"unit\": \"km\",\n      \"source\": \"term:rate_ac_midi\",\n      \"source_kind\": \"SOURCE_FACT\",\n      \"quote\": \"Per-kilometre Gross Cost Rate...",
+   "tokens": 6255
+  },
+  {
+   "t": 215.4,
+   "agent": "finalizer_metrolink",
+   "kind": "done",
+   "name": "",
+   "detail": "MetroLink: cost model part ok (2 lines, 0 unresolved reference(s), 0 open question(s). Merged: complete=['MetroLink'] needs_answers=[])"
+  },
+  {
+   "t": 218.1,
+   "agent": "index_resolver_greenmetro",
+   "kind": "call",
+   "name": "set_model_response",
+   "detail": "{\"resolutions\": [{\"reason\": \"\", \"series_key\": \"in_cpi_iw_all_india\", \"symbol\": \"CPI-IW\", \"status\": \"ok\", \"step\": \"reuse\"}, {\"series_key\": \"in_wpi_all_commodities\", \"reason\": \"\", \"status\": \"ok\", \"step\": \"reuse\", \"symbol\":...",
+   "tokens": 3447
+  },
+  {
+   "t": 218.1,
+   "agent": "index_resolver_greenmetro",
+   "kind": "result",
+   "name": "set_model_response",
+   "detail": "{\"resolutions\": [{\"symbol\": \"CPI-IW\", \"status\": \"ok\", \"step\": \"reuse\", \"series_key\": \"in_cpi_iw_all_india\", \"url\": \"\", \"proxy\": \"\", \"reason\": \"\"}, {\"symbol\": \"WPI\", \"status\": \"ok\", \"step\": \"reuse\", \"series_key\": \"in_wpi_..."
+  },
+  {
+   "t": 218.1,
+   "agent": "index_resolver_greenmetro",
+   "kind": "done",
+   "name": "",
+   "detail": "{\"resolutions\": [{\"symbol\": \"CPI-IW\", \"status\": \"ok\", \"step\": \"reuse\", \"series_key\": \"in_cpi_iw_all_india\", \"url\": \"\", \"proxy\": \"\", \"reason\": \"\"}, {\"symbol\": \"WPI\", \"status\": \"ok\", \"step\": \"reuse\", \"series_key\": \"in_wpi_all_commodities\", \"url\": \"\", \"proxy\": \"\"..."
+  },
+  {
+   "t": 224.9,
+   "agent": "cost_model_greenmetro",
+   "kind": "done",
+   "name": "",
+   "detail": "{\n  \"supplier\": \"GreenMetro Mobility Pvt. Ltd.\",\n  \"parameters\": [\n    {\n      \"id\": \"gm_rate_1\",\n      \"value\": 63.0,\n      \"unit\": \"km\",\n      \"source\": \"term:gm_rate_1\",\n      \"source_kind\": \"SOURCE_FACT\",\n      \"quote\": \"Per-kilometre Gross Cost Rate (AC M...",
+   "tokens": 6515
+  },
+  {
+   "t": 224.9,
+   "agent": "finalizer_greenmetro",
+   "kind": "done",
+   "name": "",
+   "detail": "GreenMetro: cost model part ok (2 lines, 0 unresolved reference(s), 1 open question(s). Merged: complete=['GreenMetro', 'MetroLink'] needs_answers=[])"
+  },
+  {
+   "t": 265.8,
+   "agent": "commercial_urbandrive",
+   "kind": "done",
+   "name": "",
+   "detail": "{\n  \"supplier\": \"UrbanDrive Transit Solutions Pvt. Ltd.\",\n  \"terms\": [\n    {\n      \"term_id\": \"unit_rate_1\",\n      \"kind\": \"unit_rate\",\n      \"label\": \"Per-kilometre Gross Cost Rate (AC MIDI, 9 m)\",\n      \"amount\": 65.50,\n      \"unit\": \"km\",\n      \"currency\": ...",
+   "tokens": 62349
+  },
+  {
+   "t": 662.0,
+   "agent": "escalation_urbandrive",
+   "kind": "done",
+   "name": "",
+   "detail": "{\n  \"supplier\": \"UrbanDrive Transit Solutions Pvt. Ltd.\",\n  \"formulae\": [\n    {\n      \"formula_id\": \"rate_adjustment_1\",\n      \"applies_to\": [\n        \"unit_rate_1\"\n      ],\n      \"formula_text\": \"Payable Fee = Quoted Rate × [ 0.55 + 0.15 × CPI-IW + 0.18 × WPI...",
+   "tokens": 65809
+  },
+  {
+   "t": 669.6,
+   "agent": "index_resolver_urbandrive",
+   "kind": "call",
+   "name": "known_source",
+   "detail": "{\"symbol\": \"CPI-IW\", \"name\": \"Consumer Price Index (IndustrialWorkers)\"}",
+   "tokens": 3270
+  },
+  {
+   "t": 669.6,
+   "agent": "index_resolver_urbandrive",
+   "kind": "result",
+   "name": "known_source",
+   "detail": "{\"status\": \"reused\", \"series_key\": \"in_cpi_iw_all_india\", \"summary\": \"2021-2025 (5 years), last 145.7545\"}"
+  },
+  {
+   "t": 672.8,
+   "agent": "index_resolver_urbandrive",
+   "kind": "call",
+   "name": "known_source",
+   "detail": "{\"symbol\": \"WPI\", \"name\": \"Wholesale Price Index (All Commodities)\"}",
+   "tokens": 3365
+  },
+  {
+   "t": 672.8,
+   "agent": "index_resolver_urbandrive",
+   "kind": "result",
+   "name": "known_source",
+   "detail": "{\"status\": \"reused\", \"series_key\": \"in_wpi_all_commodities\", \"summary\": \"2013-2025 (13 years), last 154.95\"}"
+  },
+  {
+   "t": 677.6,
+   "agent": "index_resolver_urbandrive",
+   "kind": "call",
+   "name": "known_source",
+   "detail": "{\"name\": \"Charging Electricity Tariff\", \"symbol\": \"Elec\"}",
+   "tokens": 3457
+  },
+  {
+   "t": 677.6,
+   "agent": "index_resolver_urbandrive",
+   "kind": "result",
+   "name": "known_source",
+   "detail": "{\"status\": \"reused\", \"series_key\": \"in_wpi_electricity\", \"summary\": \"2013-2025 (13 years), last 143.1583\", \"proxy\": \"The state electricity tariff is set by yearly tariff orders and is not published as a series; the offic..."
+  },
+  {
+   "t": 704.0,
+   "agent": "index_resolver_urbandrive",
+   "kind": "call",
+   "name": "set_model_response",
+   "detail": "{\"resolutions\": [{\"series_key\": \"in_cpi_iw_all_india\", \"status\": \"ok\", \"step\": \"reuse\", \"proxy\": \"\", \"symbol\": \"CPI-IW\"}, {\"symbol\": \"WPI\", \"proxy\": \"\", \"step\": \"reuse\", \"status\": \"ok\", \"series_key\": \"in_wpi_all_commodit...",
+   "tokens": 3581
+  },
+  {
+   "t": 704.0,
+   "agent": "index_resolver_urbandrive",
+   "kind": "result",
+   "name": "set_model_response",
+   "detail": "{\"resolutions\": [{\"symbol\": \"CPI-IW\", \"status\": \"ok\", \"step\": \"reuse\", \"series_key\": \"in_cpi_iw_all_india\", \"url\": \"\", \"proxy\": \"\", \"reason\": \"\"}, {\"symbol\": \"WPI\", \"status\": \"ok\", \"step\": \"reuse\", \"series_key\": \"in_wpi_..."
+  },
+  {
+   "t": 704.0,
+   "agent": "index_resolver_urbandrive",
+   "kind": "done",
+   "name": "",
+   "detail": "{\"resolutions\": [{\"symbol\": \"CPI-IW\", \"status\": \"ok\", \"step\": \"reuse\", \"series_key\": \"in_cpi_iw_all_india\", \"url\": \"\", \"proxy\": \"\", \"reason\": \"\"}, {\"symbol\": \"WPI\", \"status\": \"ok\", \"step\": \"reuse\", \"series_key\": \"in_wpi_all_commodities\", \"url\": \"\", \"proxy\": \"\"..."
+  },
+  {
+   "t": 737.0,
+   "agent": "cost_model_urbandrive",
+   "kind": "done",
+   "name": "",
+   "detail": "{\n  \"supplier\": \"UrbanDrive Transit Solutions Pvt. Ltd.\",\n  \"parameters\": [\n    {\n      \"id\": \"rfq.contract.start\",\n      \"month\": \"2026-04\",\n      \"source\": \"decision:rfq.contract.start\",\n      \"source_kind\": \"DECISION\"\n    },\n    {\n      \"id\": \"rfq.contract....",
+   "tokens": 6645
+  },
+  {
+   "t": 737.0,
+   "agent": "finalizer_urbandrive",
+   "kind": "done",
+   "name": "",
+   "detail": "UrbanDrive: cost model part ok (2 lines, 0 unresolved reference(s), 0 open question(s). Merged: complete=['GreenMetro', 'MetroLink', 'UrbanDrive'] needs_answers=[])"
+  },
+  {
+   "t": 742.2,
+   "agent": "orchestrator",
+   "kind": "done",
+   "name": "",
+   "detail": "{\n  \"rfq_id\": \"IN-CRUT-EBUS\",\n  \"title\": \"Operation & maintenance of 200 electric buses on Gross Cost Contract, Bhubaneswar\",\n  \"bidders\": [\n    {\n      \"supplier\": \"GreenMetro\",\n      \"status\": \"ok\",\n      \"quoted_price\": \"63 INR km (200 x MIDI (9 m) AC elect...",
+   "tokens": 2382
+  }
+ ],
+ "bidders": [
+  "GreenMetro",
+  "MetroLink",
+  "UrbanDrive"
+ ]
+}

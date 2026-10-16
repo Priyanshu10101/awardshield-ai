@@ -1,1 +1,13 @@
-[]
+[
+ {
+  "key": "greenmetro.currency_words_disagreement",
+  "scope": "supplier",
+  "question": "The quoted per-kilometre rate is given numerically as 'Rs 63.00 / km' but in words as 'Rupees Sixty Six only per kilometre'. Which rate should be applied?",
+  "options": [
+   "Rs 63.00 / km",
+   "Rs 66.00 / km"
+  ],
+  "suggestion": "Rs 63.00 / km",
+  "why": "There is a direct discrepancy between the numerical figure ('Rs 63.00 / km') and the words ('Rupees Sixty Six only per kilometre') in BID_1_GreenMetro.pdf on page 1."
+ }
+]

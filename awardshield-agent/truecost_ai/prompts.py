@@ -533,6 +533,11 @@ unit, another item's figure, a date outside the contract), raise an open
 question quoting both
 instead of working around it.
 
+FIGURE vs WORDS: a price parameter takes the term's printed figure ('amount'), source_kind
+SOURCE_FACT - even when amount_in_words says something else. Never apply a 'words prevail' rule
+yourself; a separate auditor checks that conflict against the tender and re-runs the engine.
+Mention the disagreement in the parameter's quote.
+
 K2. CONTRACT-WIDE PARAMETERS are ONE value for the whole tender, ids 'rfq.
 <name>':
 - rfq.contract.start: a calendar month (month 'YYYY-MM'), source 'volume:contract.supply_start'

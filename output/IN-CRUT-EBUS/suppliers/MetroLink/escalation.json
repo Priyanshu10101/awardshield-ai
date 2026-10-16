@@ -1,21 +1,21 @@
 {
- "supplier": "GreenMetro Mobility Pvt. Ltd.",
+ "supplier": "MetroLink Fleet Services Ltd.",
  "formulae": [
   {
    "formula_id": "rate_adjustment",
    "applies_to": [
     "rate_ac_midi"
    ],
-   "formula_text": "Payable Fee = Quoted Rate × [ 0.64 + 0.12 × CPI-IW + 0.14 × WPI + 0.10 × Elec ]",
-   "fixed_weight": 0.64,
+   "formula_text": "Payable Fee = Quoted Rate × [ 0.30 + 0.40 × CPI-IW + 0.20 × WPI + 0.10 × Elec ]",
+   "fixed_weight": 0.3,
    "terms": [
     {
      "symbol": "CPI-IW",
-     "weight": 0.12
+     "weight": 0.4
     },
     {
      "symbol": "WPI",
-     "weight": 0.14
+     "weight": 0.2
     },
     {
      "symbol": "Elec",
@@ -25,14 +25,14 @@
    "frequency_months": 6,
    "first_adjustment": "once every six (6) months",
    "trigger": "when any component index moves by more than 4% from its value on the Base Index Date, i.e. the Bid Due Date",
-   "base_period": "Bid Due Date",
-   "applies_to_item": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m)",
+   "base_period": "Base Index Date, i.e. the Bid Due Date",
+   "applies_to_item": "AC MIDI electric buses",
    "supersedes": "",
    "source_kind": "proposal",
    "evidence": {
-    "document": "Bid2_MetroLink.pdf",
-    "page": "Page 1",
-    "quote": "Payable Fee = Quoted Rate × [ 0.64 + 0.12 × CPI-IW + 0.14 × WPI + 0.10 × Elec ]"
+    "document": "BID_2_MetroLink.pdf",
+    "page": "1",
+    "quote": "Payable Fee = Quoted Rate × [ 0.30 + 0.40 × CPI-IW + 0.20 × WPI + 0.10 × Elec ]"
    }
   }
  ],
@@ -46,9 +46,9 @@
    "region": "All-India",
    "printed_url": "",
    "evidence": {
-    "document": "Bid2_MetroLink.pdf",
-    "page": "Page 1",
-    "quote": "Consumer Price Index (Industrial Workers) | CPI-IW | 0.12 | Labour Bureau, All-India CPI-IW"
+    "document": "BID_2_MetroLink.pdf",
+    "page": "1",
+    "quote": "Consumer Price Index (Industrial Workers) | CPI-IW | 0.40 | Labour Bureau, All-India CPI-IW"
    }
   },
   {
@@ -60,22 +60,22 @@
    "region": "",
    "printed_url": "",
    "evidence": {
-    "document": "Bid2_MetroLink.pdf",
-    "page": "Page 1",
-    "quote": "Wholesale Price Index (All Commodities) | WPI | 0.14 | Office of the Economic Adviser, WPI"
+    "document": "BID_2_MetroLink.pdf",
+    "page": "1",
+    "quote": "Wholesale Price Index (All Commodities) | WPI | 0.20 | Office of the Economic Adviser, WPI"
    }
   },
   {
    "kind": "energy",
    "symbol": "Elec",
    "name": "Charging Electricity Tariff",
-   "publisher": "",
+   "publisher": "State DISCOM",
    "country": "India",
    "region": "",
    "printed_url": "",
    "evidence": {
-    "document": "Bid2_MetroLink.pdf",
-    "page": "Page 1",
+    "document": "BID_2_MetroLink.pdf",
+    "page": "1",
     "quote": "Charging Electricity Tariff | Elec | 0.10 | State DISCOM LT-VII / EV tariff"
    }
   }

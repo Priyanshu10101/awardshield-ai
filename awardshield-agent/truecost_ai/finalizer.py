@@ -77,6 +77,11 @@ def tidy(draft: CostModelDraft, resolutions: list[dict]) -> CostModelDraft:
             t.series = keys.get(t.series, t.series)
     for f in ("horizon_start", "horizon_months", "base_year", "discount_rate"):
         setattr(d, f, squash(getattr(d, f)))
+    for p in d.parameters:  # a policy value stated in percent ('..._pct...': 12) is a fraction (0.12)
+        key = p.source.removeprefix("policy:") if p.source.startswith("policy:") else ""
+        if "pct" in key and p.value is not None and p.value > 1:
+            p.value = p.value / 100
+            p.quote = (p.quote + " " if p.quote else "") + f"[{key} is in percent: /100]"
     return d
 
 
@@ -234,6 +239,13 @@ def link_problems(
                 problems.append(
                     f"escalator {e.id}: weights differ from formula {f.formula_id}"
                 )
+    rate = draft.discount_rate.partition(":")
+    if rate[0] == "p" and rate[2] in params and params[rate[2]].value is not None \
+            and not 0 <= params[rate[2]].value < 1:
+        problems.append(f"horizon: discount rate {rate[2]} = {params[rate[2]].value:g} is not an annual "
+                        f"fraction (12 % = 0.12)")
+    elif rate[0] == "c" and not 0 <= float(rate[2] or 0) < 1:
+        problems.append(f"horizon: discount rate '{draft.discount_rate}' is not an annual fraction (12 % = 0.12)")
     for tok in (
         draft.horizon_start,
         draft.horizon_months,

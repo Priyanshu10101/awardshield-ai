@@ -3,9 +3,9 @@
   {
    "symbol": "CPI-IW",
    "status": "ok",
-   "step": "known_source",
+   "step": "reuse",
    "series_key": "in_cpi_iw_all_india",
-   "url": "https://labourbureau.gov.in/centre-index",
+   "url": "",
    "proxy": "",
    "reason": ""
   },
@@ -21,9 +21,9 @@
   {
    "symbol": "Elec",
    "status": "ok",
-   "step": "known_source",
+   "step": "reuse",
    "series_key": "in_wpi_electricity",
-   "url": "https://eaindustry.nic.in/indx_download_1112/cal_year_index.xls",
+   "url": "",
    "proxy": "The state electricity tariff is set by yearly tariff orders and is not published as a series; the official national WPI Electricity sub-index stands in for its year-on-year change.",
    "reason": ""
   }

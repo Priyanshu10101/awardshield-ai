@@ -16,19 +16,19 @@
     {
       "name": "GreenMetro",
       "commercial": [
-        "Bids/Bid1_GreenMetro.pdf"
+        "Bids/BID_1_GreenMetro.pdf"
       ]
     },
     {
       "name": "MetroLink",
       "commercial": [
-        "Bids/Bid2_MetroLink.pdf"
+        "Bids/BID_2_MetroLink.pdf"
       ]
     },
     {
       "name": "UrbanDrive",
       "commercial": [
-        "Bids/Bid3_UrbanDrive.pdf"
+        "Bids/BID_3_UrbanDrive.pdf"
       ]
     }
   ]

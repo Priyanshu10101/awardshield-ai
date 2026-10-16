@@ -3,7 +3,7 @@
  "parameters": {
   "rfq.contract.start": {
    "value": null,
-   "month": "2026-01",
+   "month": "2026-04",
    "choice": "",
    "unit": "",
    "source": "decision:rfq.contract.start",
@@ -15,36 +15,36 @@
    "month": "",
    "choice": "120 | 144",
    "unit": "months",
-   "source": "volume:contract.term_months_options",
-   "source_kind": "SOURCE_FACT",
-   "quote": "BRAMHAPUR FOR (10+2) YEARS"
+   "source": "decision:rfq.contract.months",
+   "source_kind": "DECISION",
+   "quote": ""
   },
   "rfq.index.base_year": {
    "value": 2025.0,
    "month": "",
    "choice": "",
-   "unit": "year",
-   "source": "policy:index.base_year_rule",
-   "source_kind": "POLICY",
+   "unit": "",
+   "source": "decision:rfq.index.base_year",
+   "source_kind": "DECISION",
    "quote": ""
   },
   "rfq.finance.discount_rate": {
    "value": 0.12,
    "month": "",
    "choice": "",
-   "unit": "fraction",
+   "unit": "%/year",
    "source": "policy:finance.discount_rate_pct_per_year",
    "source_kind": "POLICY",
-   "quote": ""
+   "quote": "[finance.discount_rate_pct_per_year is in percent: /100]"
   },
-  "rate_ac_midi": {
-   "value": 64.0,
+  "unit_rate_1": {
+   "value": 65.5,
    "month": "",
    "choice": "",
-   "unit": "INR / assured km",
-   "source": "term:rate_ac_midi",
+   "unit": "Rs/km",
+   "source": "term:unit_rate_1",
    "source_kind": "SOURCE_FACT",
-   "quote": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) | ■64.00 / km"
+   "quote": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) | Rs 65.50 / km"
   }
  },
  "indices": {
@@ -73,7 +73,7 @@
    "source": "volume:pkg_viii",
    "scale": 1.0,
    "per_month": 540000.0,
-   "built_as": "(100 buses x 180 km/day/bus) x 30 days/month",
+   "built_as": "(100 buses x 64800 km/year/bus) / 12 months",
    "points": {}
   },
   "pkg_ix": {
@@ -81,43 +81,43 @@
    "source": "volume:pkg_ix",
    "scale": 1.0,
    "per_month": 540000.0,
-   "built_as": "(100 buses x 180 km/day/bus) x 30 days/month",
+   "built_as": "(100 buses x 64800 km/year/bus) / 12 months",
    "points": {}
   }
  },
  "lines": [
   {
    "id": "line_pkg_viii",
-   "role": "Operations Fee Package VIII",
+   "role": "operating_fee",
    "factors": [
-    "p:rate_ac_midi",
+    "p:unit_rate_1",
     "d:pkg_viii"
    ],
    "start": "p:rfq.contract.start",
    "end": "",
    "escalators": [
-    "rate_adjustment"
+    "rate_adjustment_1"
    ],
    "when": ""
   },
   {
    "id": "line_pkg_ix",
-   "role": "Operations Fee Package IX",
+   "role": "operating_fee",
    "factors": [
-    "p:rate_ac_midi",
+    "p:unit_rate_1",
     "d:pkg_ix"
    ],
    "start": "p:rfq.contract.start",
    "end": "",
    "escalators": [
-    "rate_adjustment"
+    "rate_adjustment_1"
    ],
    "when": ""
   }
  ],
  "escalators": [
   {
-   "id": "rate_adjustment",
+   "id": "rate_adjustment_1",
    "kind": "index_formula",
    "fixed": 0.55,
    "terms": [
@@ -136,7 +136,7 @@
    ],
    "first": "p:rfq.contract.start+6",
    "every": "c:6",
-   "source": "formula:rate_adjustment"
+   "source": "formula:rate_adjustment_1"
   }
  ],
  "horizon": {

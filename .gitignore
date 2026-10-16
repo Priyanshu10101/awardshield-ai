@@ -7,3 +7,4 @@ __pycache__/
 .adk/
 .DS_Store
 data/state/*/checkpoints/
+output/*.backup-*/

@@ -11,38 +11,40 @@
      "unit": "buses",
      "evidence": {
       "document": "CRUT_RFP_200_ebus.pdf",
-      "page": "Page 11",
+      "page": "11",
       "quote": "a. Package VIII: 100 Midi E-buses"
      }
     },
     {
-     "name": "Daily Assured Kms per bus",
-     "value": 180.0,
-     "unit": "km/day/bus",
+     "name": "Assured Km Per annum per bus",
+     "value": 64800.0,
+     "unit": "km/year/bus",
      "evidence": {
       "document": "CRUT_RFP_200_ebus.pdf",
-      "page": "Page 55",
-      "quote": "1 | Berhampur | Package-VIII | 50 | 180 | 10+2 years"
+      "page": "95",
+      "quote": "22. Assured Km Per annum per bus | 64,800"
      }
     }
    ],
-   "build_rule": "Number of buses multiplied by daily assured kilometers per bus multiplied by days in period.",
+   "build_rule": "Number of buses x Assured km per annum per bus",
    "ramp": [],
    "stream": "Package VIII",
    "primary": true,
-   "choice_reason": "Tender asks bidders to price Package VIII as one of the two main packages.",
-   "markers": [],
+   "choice_reason": "The tender asks bidders to price this package directly in the financial proposal.",
+   "markers": [
+    "Package-VIII"
+   ],
    "notes": "",
    "evidence": [
     {
      "document": "CRUT_RFP_200_ebus.pdf",
-     "page": "Page 11",
+     "page": "11",
      "quote": "a. Package VIII: 100 Midi E-buses"
     },
     {
      "document": "CRUT_RFP_200_ebus.pdf",
-     "page": "Page 55",
-     "quote": "1 | Berhampur | Package-VIII | 50 | 180 | 10+2 years"
+     "page": "95",
+     "quote": "22. Assured Km Per annum per bus | 64,800"
     }
    ]
   },
@@ -57,38 +59,40 @@
      "unit": "buses",
      "evidence": {
       "document": "CRUT_RFP_200_ebus.pdf",
-      "page": "Page 11",
+      "page": "11",
       "quote": "b. Package IX: 100 Midi E-buses"
      }
     },
     {
-     "name": "Daily Assured Kms per bus",
-     "value": 180.0,
-     "unit": "km/day/bus",
+     "name": "Assured Km Per annum per bus",
+     "value": 64800.0,
+     "unit": "km/year/bus",
      "evidence": {
       "document": "CRUT_RFP_200_ebus.pdf",
-      "page": "Page 55",
-      "quote": "4 | Angul | Package-IX | 25 | 180 | 10+2 years"
+      "page": "95",
+      "quote": "22. Assured Km Per annum per bus | 64,800"
      }
     }
    ],
-   "build_rule": "Number of buses multiplied by daily assured kilometers per bus multiplied by days in period.",
+   "build_rule": "Number of buses x Assured km per annum per bus",
    "ramp": [],
    "stream": "Package IX",
    "primary": true,
-   "choice_reason": "Tender asks bidders to price Package IX as the second main package.",
-   "markers": [],
+   "choice_reason": "The tender asks bidders to price this package directly in the financial proposal.",
+   "markers": [
+    "Package-IX"
+   ],
    "notes": "",
    "evidence": [
     {
      "document": "CRUT_RFP_200_ebus.pdf",
-     "page": "Page 11",
+     "page": "11",
      "quote": "b. Package IX: 100 Midi E-buses"
     },
     {
      "document": "CRUT_RFP_200_ebus.pdf",
-     "page": "Page 55",
-     "quote": "4 | Angul | Package-IX | 25 | 180 | 10+2 years"
+     "page": "95",
+     "quote": "22. Assured Km Per annum per bus | 64,800"
     }
    ]
   }
@@ -101,18 +105,23 @@
   "supply_start": "",
   "adjustment_frequency_months": 6,
   "first_adjustment_months": 6,
-  "adjustment_trigger": "",
+  "adjustment_trigger": "varied by more than 4% (four per cent) between the last bill and subsequent changes in every 6 months thereafter",
   "base_index_date": "",
   "evidence": [
    {
     "document": "CRUT_RFP_200_ebus.pdf",
-    "page": "Page 1",
+    "page": "1",
     "quote": "BRAMHAPUR FOR (10+2) YEARS"
    },
    {
     "document": "CRUT_RFP_200_ebus.pdf",
-    "page": "Page 15",
+    "page": "15",
     "quote": "The Parties agree that the Fee shall be revised every 6 (six) month on the basis of variation in electricity tariff for the Charging Infrastructure and CPIIW and WPI in accordance with the terms of this Agreement (\"Fee Revision\")."
+   },
+   {
+    "document": "CRUT_RFP_200_ebus.pdf",
+    "page": "15",
+    "quote": "if in any event the CPIIW, WPI and electricity charge varies by more than 4% (four per cent) between the last bill and subsequent changes in every 6 months thereafter, the per kilometer charges shall be paid as per formula mentioned below."
    }
   ]
  },
@@ -123,8 +132,8 @@
    "end": "10 years from COD",
    "evidence": {
     "document": "CRUT_RFP_200_ebus.pdf",
-    "page": "Page 12",
-    "quote": "The \"Operations Period\" shall begin from COD and end in Ten (10) years from the COD (\"Contract Period/ Agreement Period\"), provided that the Authority, at its sole discretion, may extend the Operations Period by additional Two (2) years"
+    "page": "12",
+    "quote": "The \"Operations Period\" shall begin from COD and end in Ten (10) years from the COD (\"Contract Period/ Agreement Period\"), provided that the Authority, at its sole discretion, may extend the Operations Period by additional Two (2) years based on operator performance and condition of the Buses."
    }
   }
  ],

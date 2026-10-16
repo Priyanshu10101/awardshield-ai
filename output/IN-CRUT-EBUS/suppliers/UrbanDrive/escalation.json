@@ -2,9 +2,9 @@
  "supplier": "UrbanDrive Transit Solutions Pvt. Ltd.",
  "formulae": [
   {
-   "formula_id": "rate_adjustment",
+   "formula_id": "rate_adjustment_1",
    "applies_to": [
-    "rate_ac_midi"
+    "unit_rate_1"
    ],
    "formula_text": "Payable Fee = Quoted Rate × [ 0.55 + 0.15 × CPI-IW + 0.18 × WPI + 0.12 × Elec ]",
    "fixed_weight": 0.55,
@@ -23,15 +23,15 @@
     }
    ],
    "frequency_months": 6,
-   "first_adjustment": "Every six (6) months from COD",
-   "trigger": "triggered when any component index moves by more than 4% from its value on the Base Index Date, i.e. the Bid Due Date",
-   "base_period": "Base Index Date, i.e. the Bid Due Date",
-   "applies_to_item": "AC MIDI electric buses",
-   "supersedes": "",
+   "first_adjustment": "revised once every six (6) months",
+   "trigger": "when any component index moves by more than 4% from its value on the Base Index Date, i.e. the Bid Due Date",
+   "base_period": "Bid Due Date",
+   "applies_to_item": "AC MIDI 9m electric buses",
+   "supersedes": "SUPERSEDES: Payable Fee = Final Quoted Price* [1 + (0.2 *((CPI IW on the date of submission of the statement – CPI IW on the Base Index Date)/ CPI IW on the Base Index Date)) + (0.6 * 0.4 * ((WPI on the date of submission of the statement – WPI on the Base Index Date)/ WPI on the Base Index Date)) + (0.2 * ((price per kWh of electricity on the date of submission of the statement - price per kWh of electricity on the Base Index Date)/ price per kWh of electricity on the Base Index Date))] (CRUT_RFP_200_ebus.pdf)",
    "source_kind": "proposal",
    "evidence": {
-    "document": "Bid3_UrbanDrive.pdf",
-    "page": "Page 1",
+    "document": "BID_3_UrbanDrive.pdf",
+    "page": "1",
     "quote": "Payable Fee = Quoted Rate × [ 0.55 + 0.15 × CPI-IW + 0.18 × WPI + 0.12 × Elec ]"
    }
   }
@@ -43,11 +43,11 @@
    "name": "Consumer Price Index (Industrial Workers)",
    "publisher": "Labour Bureau, All-India CPI-IW",
    "country": "India",
-   "region": "All-India",
+   "region": "",
    "printed_url": "",
    "evidence": {
-    "document": "Bid3_UrbanDrive.pdf",
-    "page": "Page 1",
+    "document": "BID_3_UrbanDrive.pdf",
+    "page": "1",
     "quote": "Consumer Price Index (Industrial Workers) | CPI-IW | 0.15 | Labour Bureau, All-India CPI-IW"
    }
   },
@@ -57,11 +57,11 @@
    "name": "Wholesale Price Index (All Commodities)",
    "publisher": "Office of the Economic Adviser, WPI",
    "country": "India",
-   "region": "All-India",
+   "region": "",
    "printed_url": "",
    "evidence": {
-    "document": "Bid3_UrbanDrive.pdf",
-    "page": "Page 1",
+    "document": "BID_3_UrbanDrive.pdf",
+    "page": "1",
     "quote": "Wholesale Price Index (All Commodities) | WPI | 0.18 | Office of the Economic Adviser, WPI"
    }
   },
@@ -69,13 +69,13 @@
    "kind": "energy",
    "symbol": "Elec",
    "name": "Charging Electricity Tariff",
-   "publisher": "State DISCOM",
+   "publisher": "State DISCOM LT-VII / EV tariff",
    "country": "India",
    "region": "",
    "printed_url": "",
    "evidence": {
-    "document": "Bid3_UrbanDrive.pdf",
-    "page": "Page 1",
+    "document": "BID_3_UrbanDrive.pdf",
+    "page": "1",
     "quote": "Charging Electricity Tariff | Elec | 0.12 | State DISCOM LT-VII / EV tariff"
    }
   }

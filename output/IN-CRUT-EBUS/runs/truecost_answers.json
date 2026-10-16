@@ -1,0 +1,63 @@
+{
+ "run": "truecost_answers",
+ "rfq_id": "IN-CRUT-EBUS",
+ "started_at": "2026-10-16T19:59:43+00:00",
+ "duration_s": 10.9,
+ "events": [
+  {
+   "t": 0.1,
+   "agent": "cost_model_greenmetro",
+   "kind": "done",
+   "name": "",
+   "detail": "{\"supplier\": \"GreenMetro Mobility Pvt. Ltd.\", \"parameters\": [{\"id\": \"gm_rate_1\", \"value\": 63.0, \"month\": \"\", \"choice\": \"\", \"unit\": \"km\", \"source\": \"term:gm_rate_1\", \"source_kind\": \"SOURCE_FACT\", \"quote\": \"Per-kilometre Gross Cost Rate (AC MIDI, 9 m) | Rs 63.00..."
+  },
+  {
+   "t": 0.1,
+   "agent": "cost_model_metrolink",
+   "kind": "done",
+   "name": "",
+   "detail": "{\"supplier\": \"MetroLink Fleet Services Ltd.\", \"parameters\": [{\"id\": \"rate_ac_midi\", \"value\": 61.0, \"month\": \"\", \"choice\": \"\", \"unit\": \"km\", \"source\": \"term:rate_ac_midi\", \"source_kind\": \"SOURCE_FACT\", \"quote\": \"Per-kilometre Gross Cost Rate (AC MIDI, 9 m) | Rs..."
+  },
+  {
+   "t": 0.1,
+   "agent": "cost_model_urbandrive",
+   "kind": "done",
+   "name": "",
+   "detail": "{\"supplier\": \"UrbanDrive Transit Solutions Pvt. Ltd.\", \"parameters\": [{\"id\": \"rfq.contract.start\", \"month\": \"2026-04\", \"choice\": \"\", \"unit\": \"\", \"source\": \"decision:rfq.contract.start\", \"source_kind\": \"DECISION\", \"quote\": \"\"}, {\"id\": \"rfq.contract.months\", \"va..."
+  },
+  {
+   "t": 0.1,
+   "agent": "finalizer_greenmetro",
+   "kind": "done",
+   "name": "",
+   "detail": "GreenMetro: cost model part ok (2 lines, 0 unresolved reference(s), 1 open question(s). Merged: complete=['GreenMetro', 'MetroLink', 'UrbanDrive'] needs_answers=[])"
+  },
+  {
+   "t": 0.1,
+   "agent": "finalizer_metrolink",
+   "kind": "done",
+   "name": "",
+   "detail": "MetroLink: cost model part ok (2 lines, 0 unresolved reference(s), 0 open question(s). Merged: complete=['GreenMetro', 'MetroLink', 'UrbanDrive'] needs_answers=[])"
+  },
+  {
+   "t": 0.1,
+   "agent": "finalizer_urbandrive",
+   "kind": "done",
+   "name": "",
+   "detail": "UrbanDrive: cost model part ok (2 lines, 0 unresolved reference(s), 0 open question(s). Merged: complete=['GreenMetro', 'MetroLink', 'UrbanDrive'] needs_answers=[])"
+  },
+  {
+   "t": 10.9,
+   "agent": "orchestrator",
+   "kind": "done",
+   "name": "",
+   "detail": "{\n  \"rfq_id\": \"IN-CRUT-EBUS\",\n  \"title\": \"Operation & maintenance of 200 electric buses on Gross Cost Contract, Bhubaneswar\",\n  \"bidders\": [\n    {\n      \"supplier\": \"GreenMetro\",\n      \"status\": \"ok\",\n      \"quoted_price\": \"63 INR km (200 x MIDI (9 m) AC elect...",
+   "tokens": 2382
+  }
+ ],
+ "bidders": [
+  "GreenMetro",
+  "MetroLink",
+  "UrbanDrive"
+ ]
+}
