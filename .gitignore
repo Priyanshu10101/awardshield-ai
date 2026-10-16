@@ -1,5 +1,9 @@
 .env
-assets/
+assets/**
+!assets/Bids/
+!assets/Bids/BID_*.pdf
+!assets/rfp/
+!assets/rfp/*.pdf
 practice.py
 __pycache__/
 *.pyc
