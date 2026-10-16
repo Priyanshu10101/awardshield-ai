@@ -1,0 +1,84 @@
+{
+ "supplier": "GreenMetro Mobility Pvt. Ltd.",
+ "formulae": [
+  {
+   "formula_id": "rate_adjustment",
+   "applies_to": [
+    "rate_ac_midi"
+   ],
+   "formula_text": "Payable Fee = Quoted Rate × [ 0.64 + 0.12 × CPI-IW + 0.14 × WPI + 0.10 × Elec ]",
+   "fixed_weight": 0.64,
+   "terms": [
+    {
+     "symbol": "CPI-IW",
+     "weight": 0.12
+    },
+    {
+     "symbol": "WPI",
+     "weight": 0.14
+    },
+    {
+     "symbol": "Elec",
+     "weight": 0.1
+    }
+   ],
+   "frequency_months": 6,
+   "first_adjustment": "once every six (6) months",
+   "trigger": "when any component index moves by more than 4% from its value on the Base Index Date, i.e. the Bid Due Date",
+   "base_period": "Bid Due Date",
+   "applies_to_item": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m)",
+   "supersedes": "",
+   "source_kind": "proposal",
+   "evidence": {
+    "document": "Bid2_MetroLink.pdf",
+    "page": "Page 1",
+    "quote": "Payable Fee = Quoted Rate × [ 0.64 + 0.12 × CPI-IW + 0.14 × WPI + 0.10 × Elec ]"
+   }
+  }
+ ],
+ "indices": [
+  {
+   "kind": "price",
+   "symbol": "CPI-IW",
+   "name": "Consumer Price Index (Industrial Workers)",
+   "publisher": "Labour Bureau",
+   "country": "India",
+   "region": "All-India",
+   "printed_url": "",
+   "evidence": {
+    "document": "Bid2_MetroLink.pdf",
+    "page": "Page 1",
+    "quote": "Consumer Price Index (Industrial Workers) | CPI-IW | 0.12 | Labour Bureau, All-India CPI-IW"
+   }
+  },
+  {
+   "kind": "price",
+   "symbol": "WPI",
+   "name": "Wholesale Price Index (All Commodities)",
+   "publisher": "Office of the Economic Adviser",
+   "country": "India",
+   "region": "",
+   "printed_url": "",
+   "evidence": {
+    "document": "Bid2_MetroLink.pdf",
+    "page": "Page 1",
+    "quote": "Wholesale Price Index (All Commodities) | WPI | 0.14 | Office of the Economic Adviser, WPI"
+   }
+  },
+  {
+   "kind": "energy",
+   "symbol": "Elec",
+   "name": "Charging Electricity Tariff",
+   "publisher": "",
+   "country": "India",
+   "region": "",
+   "printed_url": "",
+   "evidence": {
+    "document": "Bid2_MetroLink.pdf",
+    "page": "Page 1",
+    "quote": "Charging Electricity Tariff | Elec | 0.10 | State DISCOM LT-VII / EV tariff"
+   }
+  }
+ ],
+ "open_questions": []
+}

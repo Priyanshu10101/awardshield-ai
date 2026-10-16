@@ -1,0 +1,55 @@
+{
+ "rfq_id": "IN-CRUT-EBUS",
+ "title": "Operation & maintenance of 200 electric buses on Gross Cost Contract, Bhubaneswar",
+ "bidders": [
+  {
+   "supplier": "GreenMetro",
+   "status": "ok",
+   "quoted_price": "61 INR / km (AC MIDI, 9 m buses)",
+   "escalation": "rate_adjustment_greenmetro: 0.36 fixed + 0.2 CPI-IW + 0.24 WPI + 0.2 Elec, every 6 months",
+   "proxies": [
+    {
+     "symbol": "Elec",
+     "note": "The state electricity tariff is set by yearly tariff orders and is not published as a series; the official national WPI Electricity sub-index stands in for its year-on-year change."
+    }
+   ],
+   "problems": [],
+   "open_questions": []
+  },
+  {
+   "supplier": "MetroLink",
+   "status": "ok",
+   "quoted_price": "64.5 INR / km (200 x MIDI (9 m) AC electric buses)",
+   "escalation": "rate_adjustment: 0.64 fixed + 0.12 CPI-IW + 0.14 WPI + 0.1 Elec, every 6 months",
+   "proxies": [
+    {
+     "symbol": "Elec",
+     "note": "The state electricity tariff is set by yearly tariff orders and is not published as a series; the official national WPI Electricity sub-index stands in for its year-on-year change."
+    }
+   ],
+   "problems": [],
+   "open_questions": []
+  },
+  {
+   "supplier": "UrbanDrive",
+   "status": "ok",
+   "quoted_price": "64 INR / assured km (AC MIDI electric buses, Operations Period)",
+   "escalation": "rate_adjustment: 0.55 fixed + 0.15 CPI-IW + 0.18 WPI + 0.12 Elec, every 6 months",
+   "proxies": [
+    {
+     "symbol": "Elec",
+     "note": "The state electricity tariff is set by yearly tariff orders and is not published as a series; the official national WPI Electricity sub-index stands in for its year-on-year change."
+    }
+   ],
+   "problems": [],
+   "open_questions": []
+  }
+ ],
+ "questions": [],
+ "ready_for_evaluation": [
+  "GreenMetro",
+  "MetroLink",
+  "UrbanDrive"
+ ],
+ "summary": "This TrueCost report processes three bidder submissions for the Operation and maintenance of 200 electric buses in Bhubaneswar. All three bidders have successfully provided structured pricing models and escalation formulas using official proxy indices for electricity tariff adjustments. GreenMetro, MetroLink, and UrbanDrive are fully processed and ready for evaluation. There are no pending open questions or blocking issues for any of the bidders."
+}

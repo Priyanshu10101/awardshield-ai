@@ -1,0 +1,13 @@
+{
+  "_note": "Company standing answers, given once and reused for every tender. The cost model uses them without asking (source 'policy:<key>'). A tender-specific buyer answer overrides one. Values are company defaults - RedSeal checks them against the tender's own evaluation rules.",
+  "finance.discount_rate_pct_per_year": 12,
+  "finance.monthly_rate_method": "compound",
+  "calendar.hours_per_month": 720,
+  "contract.term_choice": "longest allowed term",
+  "volume.buffer_basis": "as printed",
+  "volume.beyond_schedule": "hold the last value",
+  "index.default_method": "mean_yoy 3",
+  "index.base_year_rule": "formula base period, else the last full calendar year before the tender was issued",
+  "utility.escalation_frequency_months": 12,
+  "fx.source": "none - single-currency tender"
+}
