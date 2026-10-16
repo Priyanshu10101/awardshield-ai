@@ -1,0 +1,152 @@
+{
+ "supplier": "GreenMetro Mobility Pvt. Ltd.",
+ "terms": [
+  {
+   "term_id": "rate_ac_midi",
+   "kind": "unit_rate",
+   "label": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m)",
+   "amount": 64.5,
+   "unit": "INR / km",
+   "currency": "INR",
+   "text": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) 64.50 / km",
+   "amount_in_words": "Rupees Sixty Four and Fifty paise per kilometre",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "200 x MIDI (9 m) AC electric buses",
+   "scope": "line_item",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "Bid2_MetroLink.pdf",
+    "page": "Page 1",
+    "quote": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) | ■64.50 / km"
+   }
+  },
+  {
+   "term_id": "esc_timing",
+   "kind": "escalation_timing",
+   "label": "Fee Revision Frequency",
+   "amount": 6.0,
+   "unit": "months",
+   "currency": "",
+   "text": "the Quoted Per-Kilometre Rate shall be revised once every six (6) months.",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "shared",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "Bid2_MetroLink.pdf",
+    "page": "Page 1",
+    "quote": "In accordance with Clause 15 of the RFP, the Quoted Per-Kilometre Rate shall be revised once every six (6) months."
+   }
+  },
+  {
+   "term_id": "cost_capex",
+   "kind": "cost_basis",
+   "label": "Electric bus capex (320 kWh)",
+   "amount": 1.0,
+   "unit": "crore / bus",
+   "currency": "INR",
+   "text": "Electric bus capex (320 kWh) 1.00 crore / bus",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Electric bus capex",
+   "scope": "line_item",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "Bid2_MetroLink.pdf",
+    "page": "Page 2",
+    "quote": "Electric bus capex (320 kWh) | ■1.00 crore / bus | LBNL/WRI India e-bus TCO"
+   }
+  },
+  {
+   "term_id": "cost_tariff",
+   "kind": "cost_basis",
+   "label": "Charging electricity tariff",
+   "amount": 5.5,
+   "unit": "INR / kWh",
+   "currency": "INR",
+   "text": "Charging electricity tariff 5.50 / kWh",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Charging electricity tariff",
+   "scope": "line_item",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "Bid2_MetroLink.pdf",
+    "page": "Page 2",
+    "quote": "Charging electricity tariff | ■5.50 / kWh | CESL Delhi benchmark"
+   }
+  },
+  {
+   "term_id": "cost_energy",
+   "kind": "cost_basis",
+   "label": "Energy consumption",
+   "amount": 0.8,
+   "unit": "kWh / km",
+   "currency": "",
+   "text": "Energy consumption 0.80 kWh / km",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Energy consumption",
+   "scope": "line_item",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "Bid2_MetroLink.pdf",
+    "page": "Page 2",
+    "quote": "Energy consumption | 0.80 kWh / km | ICCT BMTC median"
+   }
+  },
+  {
+   "term_id": "cost_maint",
+   "kind": "cost_basis",
+   "label": "Maintenance",
+   "amount": 4.0,
+   "unit": "INR / km",
+   "currency": "INR",
+   "text": "Maintenance 4.00 / km",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Maintenance",
+   "scope": "line_item",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "Bid2_MetroLink.pdf",
+    "page": "Page 2",
+    "quote": "Maintenance | ■4.00 / km | LBNL BEB maintenance"
+   }
+  }
+ ],
+ "not_stated": [
+  "recurring_fee",
+  "one_time_fee",
+  "minimum_commitment",
+  "power",
+  "utility",
+  "capacity",
+  "demand_basis"
+ ],
+ "open_questions": []
+}

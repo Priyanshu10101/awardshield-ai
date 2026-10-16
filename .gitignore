@@ -1,0 +1,9 @@
+.env
+assets/
+practice.py
+__pycache__/
+*.pyc
+.pytest_cache/
+.adk/
+.DS_Store
+data/state/*/checkpoints/

@@ -1,0 +1,27 @@
+{
+ "series_key": "in_wpi_all_commodities",
+ "symbol": "WPI",
+ "label": "All commodities",
+ "annual_values": {
+  "2013": 111.1,
+  "2014": 114.8,
+  "2015": 110.3,
+  "2016": 110.3,
+  "2017": 114.1,
+  "2018": 118.9,
+  "2019": 121.2,
+  "2020": 121.8,
+  "2021": 135.0,
+  "2022": 151.3,
+  "2023": 151.3,
+  "2024": 154.0,
+  "2025": 154.95
+ },
+ "url": "https://eaindustry.nic.in/indx_download_1112/cal_year_index.xls",
+ "official": "eaindustry.nic.in is an official publisher domain",
+ "frequency": "annual",
+ "partial_years": {},
+ "downloaded_at": "2026-10-16T13:50:19+00:00",
+ "sha256": "1ad30100056d0db2dde7323468f603c4ac4c18e1d6f38d59a71e3b8516a569e5",
+ "step": "known_source"
+}

@@ -1,0 +1,132 @@
+{
+ "drivers": [
+  {
+   "driver_id": "pkg_viii",
+   "label": "Package VIII: 100 Midi E-buses",
+   "billing_unit": "per km",
+   "components": [
+    {
+     "name": "Number of Buses",
+     "value": 100.0,
+     "unit": "buses",
+     "evidence": {
+      "document": "CRUT_RFP_200_ebus.pdf",
+      "page": "Page 11",
+      "quote": "a. Package VIII: 100 Midi E-buses"
+     }
+    },
+    {
+     "name": "Daily Assured Kms per bus",
+     "value": 180.0,
+     "unit": "km/day/bus",
+     "evidence": {
+      "document": "CRUT_RFP_200_ebus.pdf",
+      "page": "Page 55",
+      "quote": "1 | Berhampur | Package-VIII | 50 | 180 | 10+2 years"
+     }
+    }
+   ],
+   "build_rule": "Number of buses multiplied by daily assured kilometers per bus multiplied by days in period.",
+   "ramp": [],
+   "stream": "Package VIII",
+   "primary": true,
+   "choice_reason": "Tender asks bidders to price Package VIII as one of the two main packages.",
+   "markers": [],
+   "notes": "",
+   "evidence": [
+    {
+     "document": "CRUT_RFP_200_ebus.pdf",
+     "page": "Page 11",
+     "quote": "a. Package VIII: 100 Midi E-buses"
+    },
+    {
+     "document": "CRUT_RFP_200_ebus.pdf",
+     "page": "Page 55",
+     "quote": "1 | Berhampur | Package-VIII | 50 | 180 | 10+2 years"
+    }
+   ]
+  },
+  {
+   "driver_id": "pkg_ix",
+   "label": "Package IX: 100 Midi E-buses",
+   "billing_unit": "per km",
+   "components": [
+    {
+     "name": "Number of Buses",
+     "value": 100.0,
+     "unit": "buses",
+     "evidence": {
+      "document": "CRUT_RFP_200_ebus.pdf",
+      "page": "Page 11",
+      "quote": "b. Package IX: 100 Midi E-buses"
+     }
+    },
+    {
+     "name": "Daily Assured Kms per bus",
+     "value": 180.0,
+     "unit": "km/day/bus",
+     "evidence": {
+      "document": "CRUT_RFP_200_ebus.pdf",
+      "page": "Page 55",
+      "quote": "4 | Angul | Package-IX | 25 | 180 | 10+2 years"
+     }
+    }
+   ],
+   "build_rule": "Number of buses multiplied by daily assured kilometers per bus multiplied by days in period.",
+   "ramp": [],
+   "stream": "Package IX",
+   "primary": true,
+   "choice_reason": "Tender asks bidders to price Package IX as the second main package.",
+   "markers": [],
+   "notes": "",
+   "evidence": [
+    {
+     "document": "CRUT_RFP_200_ebus.pdf",
+     "page": "Page 11",
+     "quote": "b. Package IX: 100 Midi E-buses"
+    },
+    {
+     "document": "CRUT_RFP_200_ebus.pdf",
+     "page": "Page 55",
+     "quote": "4 | Angul | Package-IX | 25 | 180 | 10+2 years"
+    }
+   ]
+  }
+ ],
+ "contract": {
+  "term_months_options": [
+   120,
+   144
+  ],
+  "supply_start": "",
+  "adjustment_frequency_months": 6,
+  "first_adjustment_months": 6,
+  "adjustment_trigger": "",
+  "base_index_date": "",
+  "evidence": [
+   {
+    "document": "CRUT_RFP_200_ebus.pdf",
+    "page": "Page 1",
+    "quote": "BRAMHAPUR FOR (10+2) YEARS"
+   },
+   {
+    "document": "CRUT_RFP_200_ebus.pdf",
+    "page": "Page 15",
+    "quote": "The Parties agree that the Fee shall be revised every 6 (six) month on the basis of variation in electricity tariff for the Charging Infrastructure and CPIIW and WPI in accordance with the terms of this Agreement (\"Fee Revision\")."
+   }
+  ]
+ },
+ "phases": [
+  {
+   "label": "Operations Period",
+   "start": "COD",
+   "end": "10 years from COD",
+   "evidence": {
+    "document": "CRUT_RFP_200_ebus.pdf",
+    "page": "Page 12",
+    "quote": "The \"Operations Period\" shall begin from COD and end in Ten (10) years from the COD (\"Contract Period/ Agreement Period\"), provided that the Authority, at its sole discretion, may extend the Operations Period by additional Two (2) years"
+   }
+  }
+ ],
+ "open_questions": []
+}

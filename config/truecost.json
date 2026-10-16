@@ -1,0 +1,38 @@
+{
+  "_note": "TrueCost run settings - edit here to switch. An environment variable of the same meaning (see settings.py) overrides a value for one run. An empty string in 'models' means: use 'model'.",
+
+  "case": "IN-CRUT-EBUS",
+
+  "model": "gemini-3.5-flash-lite",
+  "models": {
+    "volume": "",
+    "commercial": "",
+    "escalation": "",
+    "index_resolver": "",
+    "cost_model": "",
+    "orchestrator": "",
+    "web_search": "",
+    "transcribe": ""
+  },
+  "temperature": 0.0,
+
+  "search_tool": "none",
+  "tool_timeout_s": 60,
+  "search_timeout_s": 60,
+
+  "retry": {
+    "attempts": 6,
+    "initial_delay_s": 2,
+    "max_delay_s": 60,
+    "status_codes": [408, 429, 500, 502, 503, 504]
+  },
+
+  "output_dir": "output",
+  "state_dir": "data/state",
+  "max_question_rounds": 3,
+
+  "vertex": {
+    "use": "auto",
+    "location": "global"
+  }
+}
