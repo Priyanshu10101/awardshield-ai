@@ -1,0 +1,22 @@
+{
+ "series_key": "in_cpi_iw_all_india",
+ "symbol": "CPI-IW",
+ "label": "All India",
+ "annual_values": {
+  "2021": 122.025,
+  "2022": 129.225,
+  "2023": 136.05,
+  "2024": 141.5833,
+  "2025": 145.7545
+ },
+ "url": "https://labourbureau.gov.in/centre-index",
+ "official": "labourbureau.gov.in is an official publisher domain",
+ "frequency": "monthly",
+ "partial_years": {
+  "2023": 10,
+  "2025": 11
+ },
+ "downloaded_at": "2026-10-16T13:50:10+00:00",
+ "sha256": "305bc7be6d9edb9f85cde9d85e6e3433910bdd9ab25d87ff0b8adf102c68b08e",
+ "step": "known_source"
+}

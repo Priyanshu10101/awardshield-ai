@@ -1,0 +1,72 @@
+{
+ "rfq_id": "IN-CRUT-EBUS",
+ "title": "Operation & maintenance of 200 electric buses on Gross Cost Contract, Bhubaneswar",
+ "bidders": [
+  {
+   "supplier": "GreenMetro",
+   "status": "ok",
+   "quoted_price": "63 INR km (200 x MIDI (9 m) AC electric buses)",
+   "escalation": "gm_formula_1: 0.64 fixed + 0.12 CPI-IW + 0.14 WPI + 0.1 Elec, every 6 months",
+   "proxies": [
+    {
+     "symbol": "Elec",
+     "note": "The state electricity tariff is set by yearly tariff orders and is not published as a series; the official national WPI Electricity sub-index stands in for its year-on-year change."
+    }
+   ],
+   "problems": [],
+   "open_questions": [
+    "greenmetro.currency_words_disagreement"
+   ]
+  },
+  {
+   "supplier": "MetroLink",
+   "status": "ok",
+   "quoted_price": "61 INR km (AC MIDI electric buses)",
+   "escalation": "rate_adjustment: 0.3 fixed + 0.4 CPI-IW + 0.2 WPI + 0.1 Elec, every 6 months",
+   "proxies": [
+    {
+     "symbol": "Elec",
+     "note": "The state electricity tariff is set by yearly tariff orders and is not published as a series; the official national WPI Electricity sub-index stands in for its year-on-year change."
+    }
+   ],
+   "problems": [],
+   "open_questions": []
+  },
+  {
+   "supplier": "UrbanDrive",
+   "status": "ok",
+   "quoted_price": "65.5 Rs km (AC MIDI 9m electric buses)",
+   "escalation": "rate_adjustment_1: 0.55 fixed + 0.15 CPI-IW + 0.18 WPI + 0.12 Elec, every 6 months",
+   "proxies": [
+    {
+     "symbol": "Elec",
+     "note": "The state electricity tariff is set by yearly tariff orders and is not published as a series; the official national WPI Electricity sub-index stands in for its year-on-year change."
+    }
+   ],
+   "problems": [],
+   "open_questions": []
+  }
+ ],
+ "questions": [
+  {
+   "key": "greenmetro.currency_words_disagreement",
+   "scope": "supplier",
+   "question": "The quoted per-kilometre rate is given numerically as 'Rs 63.00 / km' but in words as 'Rupees Sixty Six only per kilometre'. Which rate should be applied?",
+   "options": [
+    "Rs 63.00 / km",
+    "Rs 66.00 / km"
+   ],
+   "suggestion": "Rs 63.00 / km",
+   "why": "There is a direct discrepancy between the numerical figure ('Rs 63.00 / km') and the words ('Rupees Sixty Six only per kilometre') in BID_1_GreenMetro.pdf on page 1.",
+   "suppliers": [
+    "GreenMetro"
+   ]
+  }
+ ],
+ "ready_for_evaluation": [
+  "GreenMetro",
+  "MetroLink",
+  "UrbanDrive"
+ ],
+ "summary": "This TrueCost report processes three bidders for the operation and maintenance of 200 electric buses on a Gross Cost Contract in Bhubaneswar. All three bidders—GreenMetro, MetroLink, and UrbanDrive—have achieved an 'ok' status and are ready for evaluation. Each bidder incorporates the national WPI Electricity sub-index as a proxy for the state electricity tariff in their escalation formulas. One open question remains regarding a discrepancy between numerical and written figures in GreenMetro's financial proposal. Resolving this specific currency question will clarify GreenMetro's exact quoted rate."
+}

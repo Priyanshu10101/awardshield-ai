@@ -1,0 +1,8 @@
+{
+  "_note": "The BUYER'S evaluation rules RedSeal checks the cost model against. The CRUT tender itself prescribes no discount rate or index window (it awards on 'Lowest Aggregate Bus Operation Cost for Year One', L1 per package): these values are the procurement team's evaluation standard for multi-year GCC contracts and must be confirmed by the buyer. Company policy (config/buyer_policy.json) departs from them.",
+  "discount_rate": 0.10,
+  "index_method": {"method": "mean_yoy", "years": 5},
+  "source": "Buyer evaluation standard (AwardShield spec section 8), confirmed for multi-year GCC evaluations",
+  "tender_award_metric": "year_one",
+  "_tender_award_metric_note": "What the tender itself awards on: 'The bidder quoting the lowest Aggregate Bus Operation Cost for Year One ... shall be the Preferred Bidder' (RFP s.7 iii). RedSeal reports when the lifetime winner differs from this year-one L1."
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": "rfq_manifest/v1",
+  "rfq_id": "IN-CRUT-EBUS",
+  "title": "Operation & maintenance of 200 electric buses on Gross Cost Contract, Bhubaneswar",
+  "project": "CRUT Bhubaneswar",
+  "site": "Bhubaneswar",
+  "category": "e-bus GCC",
+  "country": "IN",
+  "currency": "INR",
+  "buyer": "Capital Region Urban Transport (CRUT)",
+  "assets_root": "assets",
+  "rfp_documents": [
+    "rfp"
+  ],
+  "suppliers": [
+    {
+      "name": "GreenMetro",
+      "commercial": [
+        "Bids/BID_1_GreenMetro.pdf"
+      ]
+    },
+    {
+      "name": "MetroLink",
+      "commercial": [
+        "Bids/BID_2_MetroLink.pdf"
+      ]
+    },
+    {
+      "name": "UrbanDrive",
+      "commercial": [
+        "Bids/BID_3_UrbanDrive.pdf"
+      ]
+    }
+  ]
+}

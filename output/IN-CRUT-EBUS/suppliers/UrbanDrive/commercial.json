@@ -1,0 +1,218 @@
+{
+ "supplier": "UrbanDrive Transit Solutions Pvt. Ltd.",
+ "terms": [
+  {
+   "term_id": "unit_rate_1",
+   "kind": "unit_rate",
+   "label": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m)",
+   "amount": 65.5,
+   "unit": "km",
+   "currency": "Rs",
+   "text": "Rs 65.50 / km",
+   "amount_in_words": "Rupees Sixty Five and Fifty paise per kilometre",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "AC MIDI 9m electric buses",
+   "scope": "line_item",
+   "coverage": "stated",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_3_UrbanDrive.pdf",
+    "page": "1",
+    "quote": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) | Rs 65.50 / km"
+   }
+  },
+  {
+   "term_id": "cost_basis_1",
+   "kind": "cost_basis",
+   "label": "Electric bus capex (300 kWh)",
+   "amount": 0.98,
+   "unit": "crore / bus",
+   "currency": "Rs",
+   "text": "Rs 0.98 crore / bus",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Electric bus capex (300 kWh)",
+   "scope": "line_item",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_3_UrbanDrive.pdf",
+    "page": "1",
+    "quote": "Electric bus capex (300 kWh) | Rs 0.98 crore / bus | LBNL/WRI India e-bus TCO"
+   }
+  },
+  {
+   "term_id": "cost_basis_2",
+   "kind": "cost_basis",
+   "label": "Charging electricity tariff",
+   "amount": 6.5,
+   "unit": "kWh",
+   "currency": "Rs",
+   "text": "Rs 6.50 / kWh",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Charging electricity tariff",
+   "scope": "line_item",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_3_UrbanDrive.pdf",
+    "page": "1",
+    "quote": "Charging electricity tariff | Rs 6.50 / kWh | CESL Lot-3 benchmark"
+   }
+  },
+  {
+   "term_id": "cost_basis_3",
+   "kind": "cost_basis",
+   "label": "Energy consumption",
+   "amount": 0.82,
+   "unit": "kWh / km",
+   "currency": "",
+   "text": "0.82 kWh / km",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Energy consumption",
+   "scope": "line_item",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_3_UrbanDrive.pdf",
+    "page": "1",
+    "quote": "Energy consumption | 0.82 kWh / km | ICCT BMTC median"
+   }
+  },
+  {
+   "term_id": "cost_basis_4",
+   "kind": "cost_basis",
+   "label": "Battery replacement",
+   "unit": "",
+   "currency": "",
+   "text": "once, end of year 7",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Battery replacement",
+   "scope": "line_item",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_3_UrbanDrive.pdf",
+    "page": "1",
+    "quote": "Battery replacement | once, end of year 7 | LBNL assumption"
+   }
+  },
+  {
+   "term_id": "cost_basis_5",
+   "kind": "cost_basis",
+   "label": "Maintenance",
+   "amount": 4.1,
+   "unit": "km",
+   "currency": "Rs",
+   "text": "Rs 4.10 / km",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Maintenance",
+   "scope": "line_item",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_3_UrbanDrive.pdf",
+    "page": "1",
+    "quote": "Maintenance | Rs 4.10 / km | LBNL BEB maintenance"
+   }
+  },
+  {
+   "term_id": "validity_1",
+   "kind": "validity",
+   "label": "Proposal Validity",
+   "amount": 180.0,
+   "unit": "days",
+   "currency": "",
+   "text": "remain valid for 180 days from the Bid Due Date",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "shared",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_3_UrbanDrive.pdf",
+    "page": "2",
+    "quote": "We confirm that the rates quoted are firm except for the price-adjustment mechanism stated in Clause 3 above, and remain valid for 180 days from the Bid Due Date."
+   }
+  },
+  {
+   "term_id": "escalation_timing_1",
+   "kind": "escalation_timing",
+   "label": "Fee Revision Frequency",
+   "amount": 6.0,
+   "unit": "months",
+   "currency": "",
+   "text": "revised once every six (6) months",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "shared",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_3_UrbanDrive.pdf",
+    "page": "1",
+    "quote": "In accordance with Clause 15 of the RFP, the Quoted Per-Kilometre Rate shall be revised once every six (6) months."
+   }
+  },
+  {
+   "term_id": "supply_mode_1",
+   "kind": "supply_mode",
+   "label": "Delivery basis",
+   "unit": "",
+   "currency": "",
+   "text": "Gross Cost Contract (operator paid per assured kilometre)",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "shared",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_3_UrbanDrive.pdf",
+    "page": "1",
+    "quote": "Delivery basis | Gross Cost Contract (operator paid per assured kilometre)"
+   }
+  }
+ ],
+ "not_stated": [
+  "recurring_fee",
+  "one_time_fee",
+  "minimum_commitment",
+  "power",
+  "utility",
+  "capacity",
+  "demand_basis"
+ ],
+ "open_questions": []
+}

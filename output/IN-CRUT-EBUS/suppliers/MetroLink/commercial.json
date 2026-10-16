@@ -1,0 +1,188 @@
+{
+ "supplier": "MetroLink Fleet Services Ltd.",
+ "terms": [
+  {
+   "term_id": "rate_ac_midi",
+   "kind": "unit_rate",
+   "label": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m)",
+   "amount": 61.0,
+   "unit": "km",
+   "currency": "INR",
+   "text": "Rs 61.00 / km",
+   "amount_in_words": "Rupees Sixty One only per kilometre",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "AC MIDI electric buses",
+   "scope": "line_item",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_2_MetroLink.pdf",
+    "page": "1",
+    "quote": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) | Rs 61.00 / km"
+   }
+  },
+  {
+   "term_id": "esc_timing_1",
+   "kind": "escalation_timing",
+   "label": "Price Adjustment / Escalation Timing",
+   "unit": "months",
+   "currency": "",
+   "text": "The Quoted Per-Kilometre Rate shall be revised once every six (6) months.",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_2_MetroLink.pdf",
+    "page": "1",
+    "quote": "In accordance with Clause 15 of the RFP, the Quoted Per-Kilometre Rate shall be revised once every six (6) months."
+   }
+  },
+  {
+   "term_id": "validity_1",
+   "kind": "validity",
+   "label": "Proposal Validity Period",
+   "amount": 180.0,
+   "unit": "days",
+   "currency": "",
+   "text": "remain valid for 180 days from the Bid Due Date.",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_2_MetroLink.pdf",
+    "page": "2",
+    "quote": "remain valid for 180 days from the Bid Due Date."
+   }
+  },
+  {
+   "term_id": "cost_basis_capex",
+   "kind": "cost_basis",
+   "label": "Electric bus capex (250 kWh)",
+   "amount": 0.92,
+   "unit": "crore / bus",
+   "currency": "INR",
+   "text": "Rs 0.92 crore / bus",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Electric bus capex",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_2_MetroLink.pdf",
+    "page": "1",
+    "quote": "Electric bus capex (250 kWh) | Rs 0.92 crore / bus | LBNL/WRI (smaller battery)"
+   }
+  },
+  {
+   "term_id": "cost_basis_tariff",
+   "kind": "cost_basis",
+   "label": "Charging electricity tariff",
+   "amount": 6.0,
+   "unit": "kWh",
+   "currency": "INR",
+   "text": "Rs 6.00 / kWh",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Charging electricity tariff",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_2_MetroLink.pdf",
+    "page": "1",
+    "quote": "Charging electricity tariff | Rs 6.00 / kWh | CESL multi-city benchmark"
+   }
+  },
+  {
+   "term_id": "cost_basis_energy",
+   "kind": "cost_basis",
+   "label": "Energy consumption",
+   "amount": 0.85,
+   "unit": "kWh / km",
+   "currency": "",
+   "text": "0.85 kWh / km",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Energy consumption",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_2_MetroLink.pdf",
+    "page": "1",
+    "quote": "Energy consumption | 0.85 kWh / km | ICCT BMTC range"
+   }
+  },
+  {
+   "term_id": "cost_basis_battery",
+   "kind": "cost_basis",
+   "label": "Battery replacement",
+   "unit": "",
+   "currency": "",
+   "text": "once, end of year 6",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Battery replacement",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_2_MetroLink.pdf",
+    "page": "1",
+    "quote": "Battery replacement | once, end of year 6 | shorter-cycle assumption"
+   }
+  },
+  {
+   "term_id": "cost_basis_maint",
+   "kind": "cost_basis",
+   "label": "Maintenance",
+   "amount": 4.2,
+   "unit": "km",
+   "currency": "INR",
+   "text": "Rs 4.20 / km",
+   "amount_in_words": "",
+   "case": "",
+   "phase": "",
+   "valid_from": "",
+   "valid_to": "",
+   "applies_to": "Maintenance",
+   "source_kind": "proposal",
+   "supersedes": "",
+   "evidence": {
+    "document": "BID_2_MetroLink.pdf",
+    "page": "2",
+    "quote": "Maintenance | Rs 4.20 / km | LBNL BEB maintenance"
+   }
+  }
+ ],
+ "not_stated": [
+  "one_time_fee",
+  "recurring_fee",
+  "minimum_commitment",
+  "utility",
+  "power"
+ ],
+ "open_questions": []
+}
