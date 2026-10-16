@@ -1,0 +1,153 @@
+{
+ "supplier": "MetroLink",
+ "parameters": {
+  "rfq.contract.start": {
+   "value": null,
+   "month": "2026-01",
+   "choice": "",
+   "unit": "",
+   "source": "decision:rfq.contract.start",
+   "source_kind": "DECISION",
+   "quote": ""
+  },
+  "rfq.contract.months": {
+   "value": 144.0,
+   "month": "",
+   "choice": "120 | 144",
+   "unit": "months",
+   "source": "volume:contract.term_months_options",
+   "source_kind": "SOURCE_FACT",
+   "quote": "BRAMHAPUR FOR (10+2) YEARS"
+  },
+  "rfq.index.base_year": {
+   "value": 2025.0,
+   "month": "",
+   "choice": "",
+   "unit": "",
+   "source": "policy:index.base_year_rule",
+   "source_kind": "POLICY",
+   "quote": ""
+  },
+  "rfq.finance.discount_rate": {
+   "value": 0.12,
+   "month": "",
+   "choice": "",
+   "unit": "fraction",
+   "source": "policy:finance.discount_rate_pct_per_year",
+   "source_kind": "POLICY",
+   "quote": ""
+  },
+  "rate_ac_midi": {
+   "value": 64.5,
+   "month": "",
+   "choice": "",
+   "unit": "INR / km",
+   "source": "term:rate_ac_midi",
+   "source_kind": "SOURCE_FACT",
+   "quote": "Per-kilometre Gross Cost Rate (AC MIDI, 9 m) | ■64.50 / km"
+  }
+ },
+ "indices": {
+  "in_cpi_iw_all_india": {
+   "series": "in_cpi_iw_all_india",
+   "method": "mean_yoy",
+   "years": 3,
+   "rate": null
+  },
+  "in_wpi_all_commodities": {
+   "series": "in_wpi_all_commodities",
+   "method": "mean_yoy",
+   "years": 3,
+   "rate": null
+  },
+  "in_wpi_electricity": {
+   "series": "in_wpi_electricity",
+   "method": "mean_yoy",
+   "years": 3,
+   "rate": null
+  }
+ },
+ "drivers": {
+  "pkg_viii": {
+   "id": "pkg_viii",
+   "source": "volume:pkg_viii",
+   "scale": 1.0,
+   "per_month": 540000.0,
+   "built_as": "(100 buses x 180 km/day/bus) x 30 days/month",
+   "points": {}
+  },
+  "pkg_ix": {
+   "id": "pkg_ix",
+   "source": "volume:pkg_ix",
+   "scale": 1.0,
+   "per_month": 540000.0,
+   "built_as": "(100 buses x 180 km/day/bus) x 30 days/month",
+   "points": {}
+  }
+ },
+ "lines": [
+  {
+   "id": "line_pkg_viii",
+   "role": "Package VIII Operation",
+   "factors": [
+    "p:rate_ac_midi",
+    "d:pkg_viii"
+   ],
+   "start": "p:rfq.contract.start",
+   "end": "",
+   "escalators": [
+    "rate_adjustment"
+   ],
+   "when": ""
+  },
+  {
+   "id": "line_pkg_ix",
+   "role": "Package IX Operation",
+   "factors": [
+    "p:rate_ac_midi",
+    "d:pkg_ix"
+   ],
+   "start": "p:rfq.contract.start",
+   "end": "",
+   "escalators": [
+    "rate_adjustment"
+   ],
+   "when": ""
+  }
+ ],
+ "escalators": [
+  {
+   "id": "rate_adjustment",
+   "kind": "index_formula",
+   "fixed": 0.64,
+   "terms": [
+    {
+     "series": "in_cpi_iw_all_india",
+     "weight": 0.12
+    },
+    {
+     "series": "in_wpi_all_commodities",
+     "weight": 0.14
+    },
+    {
+     "series": "in_wpi_electricity",
+     "weight": 0.1
+    }
+   ],
+   "first": "p:rfq.contract.start+6",
+   "every": "c:6",
+   "source": "formula:rate_adjustment"
+  }
+ ],
+ "horizon": {
+  "start": "p:rfq.contract.start",
+  "months": "p:rfq.contract.months",
+  "base_year": "p:rfq.index.base_year",
+  "discount_rate": "p:rfq.finance.discount_rate"
+ },
+ "status": "ok",
+ "problems": [],
+ "proxies": {
+  "Elec": "The state electricity tariff is set by yearly tariff orders and is not published as a series; the official national WPI Electricity sub-index stands in for its year-on-year change."
+ }
+}
