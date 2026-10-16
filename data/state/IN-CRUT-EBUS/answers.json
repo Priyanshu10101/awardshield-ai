@@ -1,4 +1,6 @@
 {
  "index.proxy.Elec": "accept",
- "rfq.contract.start": "2026-01"
+ "rfq.contract.start": "2026-04",
+ "rfq.index.base_year": "2025",
+ "rfq.contract.months": "144"
 }

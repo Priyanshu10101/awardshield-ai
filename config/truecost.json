@@ -12,7 +12,10 @@
     "cost_model": "",
     "orchestrator": "",
     "web_search": "",
-    "transcribe": ""
+    "transcribe": "",
+    "extraction_challenger": "",
+    "assumption_challenger": "",
+    "narrator": ""
   },
   "temperature": 0.0,
 
