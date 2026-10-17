@@ -33,6 +33,7 @@
   "output_dir": "output",
   "state_dir": "data/state",
   "max_question_rounds": 3,
+  "max_parallel_bidders": 5,
 
   "vertex": {
     "use": "auto",

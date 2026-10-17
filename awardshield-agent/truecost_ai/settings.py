@@ -16,6 +16,7 @@ place to switch things; an env var is for a one-off run. Another file: TRUECOST_
     output_dir        TRUECOST_OUTPUT_DIR        relative to the workspace root
     state_dir         TRUECOST_STATE_DIR         buyer answers (<state_dir>/<rfq_id>/answers.json)
     max_question_rounds  TRUECOST_MAX_QUESTION_ROUNDS  runner: ask / re-link rounds after the full run
+    max_parallel_bidders TRUECOST_MAX_PARALLEL_BIDDERS bidder branches running at once (more run in waves)
     vertex.use        TRUECOST_VERTEX            auto (Vertex when GOOGLE_CLOUD_PROJECT is set) | true | false
 """
 
@@ -66,6 +67,7 @@ SEARCH_TIMEOUT_S = setting("search_timeout_s", "AWARDSHIELD_SEARCH_TIMEOUT_S", T
 OUTPUT_DIR = ROOT / setting("output_dir", "TRUECOST_OUTPUT_DIR", "output")  # an absolute path wins
 STATE_DIR = ROOT / setting("state_dir", "TRUECOST_STATE_DIR", "data/state")  # buyer answers, kept across runs
 MAX_QUESTION_ROUNDS = setting("max_question_rounds", "TRUECOST_MAX_QUESTION_ROUNDS", 3)
+MAX_PARALLEL_BIDDERS = max(1, setting("max_parallel_bidders", "TRUECOST_MAX_PARALLEL_BIDDERS", 5))
 
 
 def model_for(step: str) -> str:

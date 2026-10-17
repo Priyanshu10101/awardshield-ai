@@ -1,5 +1,11 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { catchError, of, switchMap } from 'rxjs';
+import { Api } from '../core/api';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+
+/** country code -> how the case's origin is shown (the demo case: CRUT, Odisha, India) */
+const PLACE: Record<string, string> = { IN: 'Odisha, India' };
 
 /** Shared header for every case page: breadcrumb, title, sub-navigation across the parts. */
 @Component({
@@ -10,6 +16,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 <div class="wrap head">
   <nav class="crumbs small" aria-label="Breadcrumb">
     <a routerLink="/">AwardShield</a><span>/</span><a [routerLink]="['/case', id()]">{{ id() }}</a>
+    @if (place()) { <span class="place">{{ place() }}</span> }
     @if (part()) { <span>/</span><span class="cur">{{ part() }}</span> }
   </nav>
   <div class="row top">
@@ -21,9 +28,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   </div>
   <nav class="tabs" aria-label="Case sections">
     <a [routerLink]="['/case', id()]" routerLinkActive="on" [routerLinkActiveOptions]="{ exact: true }">Decision</a>
-    <a [routerLink]="['/case', id(), 'truecost']" routerLinkActive="on"><i class="d tc"></i>TrueCost</a>
+    <a [routerLink]="['/case', id(), 'truecost']" routerLinkActive="on"><i class="d tc"></i>TrueCost AI</a>
     <a [routerLink]="['/case', id(), 'engine']" routerLinkActive="on"><i class="d ink"></i>Engine</a>
-    <a [routerLink]="['/case', id(), 'redseal']" routerLinkActive="on"><i class="d rs"></i>RedSeal</a>
+    <a [routerLink]="['/case', id(), 'redseal']" routerLinkActive="on"><i class="d rs"></i>RedSeal AI</a>
     <a [routerLink]="['/case', id(), 'run']" routerLinkActive="on">Agent run</a>
   </nav>
 </div>
@@ -32,6 +39,7 @@ styles: [`
   .head { padding-top: var(--s10); display: grid; gap: var(--s6); }
   .crumbs { display: flex; gap: 8px; color: var(--ink-3); flex-wrap: wrap; }
   .crumbs a { color: var(--ink-3); } .cur { color: var(--ink); }
+  .place { padding: 1px 9px; border: 1px solid var(--rule-2); border-radius: 999px; color: var(--ink-2); background: var(--sheet); }
   .tt { display: grid; gap: var(--s3); max-width: 820px; }
   .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--rule); overflow-x: auto; scrollbar-width: none; }
   .tabs a { padding: 12px 14px; color: var(--ink-3); font: 500 14.5px/1 var(--sans); border-bottom: 2px solid transparent; margin-bottom: -1px; display: inline-flex; gap: 7px; align-items: center; white-space: nowrap; text-decoration: none !important; }
@@ -40,6 +48,14 @@ styles: [`
   .tc { background: var(--tc); } .rs { background: var(--rs); } .d.ink { background: var(--ink); }
 `] })
 export class CaseHead {
+  private readonly api = inject(Api);
+  private readonly overview = toSignal(toObservable(computed(() => this.id())).pipe(
+    switchMap((id) => this.api.case(id).pipe(catchError(() => of(null))))), { initialValue: null });
+  /** e.g. "Tender from India" - judges from other countries see where the case comes from */
+  protected readonly place = computed(() => {
+    const c = this.overview()?.country; if (!c) return '';
+    return `Tender from ${PLACE[c] ?? c}`;
+  });
   readonly id = input.required<string>();
   readonly part = input('');
   readonly kicker = input('');
