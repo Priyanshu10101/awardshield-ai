@@ -54,7 +54,7 @@ export class Acts implements OnDestroy {
   protected readonly labels = [
     { k: 'Quoted rate', why: 'Read the price on page one and MetroLink is cheapest: ₹61.00 a kilometre.' },
     { k: '12-year cost', why: '70% of MetroLink\u2019s price rises with inflation every six months. Over twelve years, in today\u2019s money, GreenMetro is cheaper.' },
-    { k: 'After RedSeal', why: '\u201cGreenMetro\u2019s rate in words is \u201cSixty Six\u201d, not 63.00. The tender says words prevail. Re-run: MetroLink wins.' },
+    { k: 'After RedSeal AI', why: '\u201cGreenMetro\u2019s rate in words is \u201cSixty Six\u201d, not 63.00. The tender says words prevail. Re-run: MetroLink wins.' },
   ];
 
   protected readonly rows = computed(() => {

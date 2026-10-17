@@ -9,7 +9,7 @@ import { CaseHead } from './case-shell';
 const REPLAY_S = 20;
 const TICK_MS = 100;
 const RUN_LABEL: Record<string, string> = {
-  truecost: 'TrueCost · full run', truecost_answers: 'TrueCost · with buyer answers', redseal: 'RedSeal',
+  truecost: 'TrueCost AI · full run', truecost_answers: 'TrueCost AI · with buyer answers', redseal: 'RedSeal AI',
 };
 /** Steps that are plain Python (no model call). */
 const CODE = /^(finalizer_|load_case|prover)/;
@@ -87,7 +87,7 @@ type AgentRow = { name: string; code: boolean; state: 'waiting' | 'running' | 'd
           </div>
         </div>
         <p class="small muted note">This is a replay of a recorded run (written by the runners to output/{{ id() }}/runs/), so nobody has to wait for the real one.
-          Steps marked <b>code</b> are plain Python: the finalizers' link checks, the engine and RedSeal's prover never call a model.</p>
+          Steps marked <b>code</b> are plain Python: the finalizers' link checks, the engine and RedSeal AI's prover never call a model.</p>
       }
     } @else {
       <div class="card card-b small muted">No recorded run yet. Run <span class="mono">python -m truecost_ai.runner {{ id() }}</span> or <span class="mono">python -m redseal_ai.runner {{ id() }}</span> to record one.</div>

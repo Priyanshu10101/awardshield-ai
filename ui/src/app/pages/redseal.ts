@@ -16,9 +16,9 @@ const KIND: Record<string, string> = {
   imports: [Icon, Seal, CaseHead],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-<app-case-head [id]="id()" part="RedSeal" kicker="Part two · RedSeal" tone="var(--rs)"
+<app-case-head [id]="id()" part="RedSeal AI" kicker="Part two · RedSeal AI" tone="var(--rs)"
   title="Trying to break the award"
-  sub="RedSeal looks for anything that could change the winner. An objection only counts once the engine has re-run with the correction."/>
+  sub="RedSeal AI looks for anything that could change the winner. An objection only counts once the engine has re-run with the correction."/>
 
 @if (p(); as p) {
   <section class="wrap body">

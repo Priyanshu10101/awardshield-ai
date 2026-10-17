@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, afterNextRender, computed, inject, signal } from '@angular/core';
 import { Icon } from '../shared/icon';
 import { Seal } from '../shared/seal';
 
@@ -25,7 +25,7 @@ const STAGES: Stage[] = [
     explain: 'A normal comparison just picks the lowest price per km, so MetroLink would get the contract. But a bus contract runs 12 years, and prices rise.',
   },
   {
-    tab: 'TrueCost', who: 'tc',
+    tab: 'TrueCost AI', who: 'tc',
     title: 'Over 12 years, GreenMetro is ₹13.6 cr cheaper.',
     metric: 'Real 12-year cost · ₹ crore, today\u2019s value',
     lo: 530, hi: 585,
@@ -34,10 +34,10 @@ const STAGES: Stage[] = [
       { name: 'MetroLink', color: '#2447D8', value: 562.64, label: '₹562.64 cr', note: '70% tied to inflation' },
       { name: 'UrbanDrive', color: '#8A6F3E', value: 575.23, label: '₹575.23 cr' },
     ],
-    explain: 'TrueCost reads every bid and its price-rise formula, fetches official inflation data, and adds up what each bid will really cost. The winner changes.',
+    explain: 'TrueCost AI reads every bid and its price-rise formula, fetches official inflation data, and adds up what each bid will really cost. The winner changes.',
   },
   {
-    tab: 'RedSeal', who: 'rs',
+    tab: 'RedSeal AI', who: 'rs',
     title: 'But GreenMetro\u2019s own bid says ₹66, not ₹63.',
     metric: 'Real 12-year cost, re-run with ₹66 · ₹ crore',
     lo: 530, hi: 585,
@@ -46,16 +46,20 @@ const STAGES: Stage[] = [
       { name: 'MetroLink', color: '#2447D8', value: 562.64, label: '₹562.64 cr' },
       { name: 'UrbanDrive', color: '#8A6F3E', value: 575.23, label: '₹575.23 cr' },
     ],
-    explain: 'RedSeal tries to break the award. GreenMetro wrote ₹63.00 in figures but "Sixty Six" in words, and the tender says words win. Re-run at ₹66: MetroLink wins.',
+    explain: 'RedSeal AI tries to break the award. GreenMetro wrote ₹63.00 in figures but "Sixty Six" in words, and the tender says words win. Re-run at ₹66: MetroLink wins.',
   },
 ];
+
+const STEP_MS = 2000;
+const TOUCH_HOLD_MS = 10000;
 
 @Component({
   selector: 'app-hero-doc',
   imports: [Seal, Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-<div class="stage" [attr.data-who]="s().who">
+<div class="stage" [attr.data-who]="s().who" (mouseenter)="hold(true)" (mouseleave)="hold(false)"
+     (focusin)="hold(true)" (focusout)="hold(false)" (pointerdown)="touched($event)">
   <div class="sheet-shadow"></div>
   <article class="card" aria-label="The e-bus tender in three steps">
     <div class="kicker">REAL PUBLIC TENDER 1376/CRUT · ODISHA, INDIA</div>
@@ -77,8 +81,8 @@ const STAGES: Stage[] = [
       @for (r of rows(); track r.name) {
         <div class="row" [style.transform]="'translateY(' + r.rank * 52 + 'px)'" [class.win]="r.rank === 0">
           <span class="nm"><i class="dot" [style.background]="r.color"></i>{{ r.name }}</span>
-          <span class="track"><span class="bar" [style.width.%]="r.w" [style.background]="r.color"></span></span>
-          @if (r.note) { <span class="note">{{ r.note }}</span> }
+          <span class="track"><span class="bar" [style.width.%]="r.w" [style.background]="r.color"></span>
+            @if (r.note) { <span class="note">{{ r.note }}</span> }</span>
           <span class="val mono">{{ r.label }}</span>
           <span class="badge">{{ r.rank === 0 ? (idx() === 0 ? 'Lowest' : 'Cheapest') : '' }}</span>
         </div>
@@ -134,7 +138,7 @@ styles: [`
   .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex: none; }
   .track { position: relative; height: 10px; background: var(--rule); border-radius: 999px; }
   .bar { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 999px; transition: width 700ms var(--ease-out); opacity: .9; }
-  .note { position: absolute; left: 0; top: 14px; font: 500 11px/1 var(--sans); color: var(--ink-3); white-space: nowrap; }
+  .note { position: absolute; left: 0; top: 13px; line-height: 1; font: 500 11px/1 var(--sans); color: var(--ink-3); white-space: nowrap; }
   .val { font-size: 13.5px; text-align: right; color: var(--ink); }
   .badge { font: 600 11px/1 var(--sans); color: var(--ok); text-align: right; }
   .row.win .badge:not(:empty):before { content: '\\2713 '; }
@@ -178,4 +182,21 @@ export class HeroDoc {
     }));
   });
   go(i: number): void { this.idx.set(i); }
+
+  /** Autoplay: the three steps loop every STEP_MS; paused while the pointer (or keyboard focus) is on the
+   *  card - someone is explaining it - and for a while after a tap on touch screens. Off for reduced motion. */
+  private readonly paused = signal(false);
+  private touchUntil = 0;
+  constructor() {
+    let timer: ReturnType<typeof setInterval> | undefined;
+    afterNextRender(() => {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      timer = setInterval(() => {
+        if (!this.paused() && Date.now() > this.touchUntil) this.idx.set((this.idx() + 1) % STAGES.length);
+      }, STEP_MS);
+    });
+    inject(DestroyRef).onDestroy(() => clearInterval(timer));
+  }
+  protected hold(on: boolean): void { this.paused.set(on); }
+  protected touched(e: PointerEvent): void { if (e.pointerType !== 'mouse') this.touchUntil = Date.now() + TOUCH_HOLD_MS; }
 }

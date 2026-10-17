@@ -12,7 +12,7 @@ interface Ev { document?: string; page?: string; quote?: string }
   imports: [Icon, CaseHead],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-<app-case-head [id]="id()" part="TrueCost" kicker="Part one · TrueCost" tone="var(--tc)"
+<app-case-head [id]="id()" part="TrueCost AI" kicker="Part one · TrueCost AI" tone="var(--tc)"
   title="What each bid actually says"
   sub="Every figure the engine uses, extracted by Gemini with a verbatim quote and page, and every price index fetched from its official publisher."/>
 
@@ -97,7 +97,7 @@ interface Ev { document?: string; page?: string; quote?: string }
     @if (questions().length) {
       <div class="blk">
         <h3 class="h2">What the agent could not decide alone</h3>
-        <p class="small muted">TrueCost never guesses an award-critical value. It asks the buyer once, and the answer is stored and reused.</p>
+        <p class="small muted">TrueCost AI never guesses an award-critical value. It asks the buyer once, and the answer is stored and reused.</p>
         <div class="card">
           @for (q of questions(); track q.key) {
             <div class="q">

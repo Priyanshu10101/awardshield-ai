@@ -151,9 +151,9 @@ export class Decision {
   });
 
   protected readonly parts = [
-    { t: 'TrueCost', path: 'truecost', icon: 'search', c: 'var(--tc)', d: 'Every extracted figure with its quote, page and source.' },
+    { t: 'TrueCost AI', path: 'truecost', icon: 'search', c: 'var(--tc)', d: 'Every extracted figure with its quote, page and source.' },
     { t: 'Engine', path: 'engine', icon: 'sliders', c: 'var(--ink)', d: 'The 12-year projection. Change any input and re-run it live.' },
-    { t: 'RedSeal', path: 'redseal', icon: 'shield', c: 'var(--rs)', d: 'Each challenge, its evidence and the engine re-run.' },
+    { t: 'RedSeal AI', path: 'redseal', icon: 'shield', c: 'var(--rs)', d: 'Each challenge, its evidence and the engine re-run.' },
     { t: 'Agent run', path: 'run', icon: 'play', c: 'var(--g-blue)', d: 'Replay what the Gemini agents did, step by step.' },
   ];
 }

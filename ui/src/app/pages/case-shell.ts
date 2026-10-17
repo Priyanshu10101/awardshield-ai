@@ -21,9 +21,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   </div>
   <nav class="tabs" aria-label="Case sections">
     <a [routerLink]="['/case', id()]" routerLinkActive="on" [routerLinkActiveOptions]="{ exact: true }">Decision</a>
-    <a [routerLink]="['/case', id(), 'truecost']" routerLinkActive="on"><i class="d tc"></i>TrueCost</a>
+    <a [routerLink]="['/case', id(), 'truecost']" routerLinkActive="on"><i class="d tc"></i>TrueCost AI</a>
     <a [routerLink]="['/case', id(), 'engine']" routerLinkActive="on"><i class="d ink"></i>Engine</a>
-    <a [routerLink]="['/case', id(), 'redseal']" routerLinkActive="on"><i class="d rs"></i>RedSeal</a>
+    <a [routerLink]="['/case', id(), 'redseal']" routerLinkActive="on"><i class="d rs"></i>RedSeal AI</a>
     <a [routerLink]="['/case', id(), 'run']" routerLinkActive="on">Agent run</a>
   </nav>
 </div>

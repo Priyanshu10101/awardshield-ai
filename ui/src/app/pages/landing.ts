@@ -1,33 +1,37 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, afterNextRender, inject, viewChild } from '@angular/core';
+import { BrandState } from '../core/brand';
 import { RouterLink } from '@angular/router';
 import { CASE_ID } from '../core/api';
 import { Icon } from '../shared/icon';
 import { Reveal } from '../shared/reveal';
 import { Seal } from '../shared/seal';
 import { HeroDoc } from './hero-doc';
+import { Hands } from '../shared/hands';
 
 @Component({
   selector: 'app-landing',
-  imports: [RouterLink, Icon, Reveal, Seal, HeroDoc],
+  imports: [RouterLink, Icon, Reveal, Seal, HeroDoc, Hands],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 <section class="hero">
+  <div #brandmark class="wrap brandmark rise" style="--i:0">
+    <svg class="bm-logo" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" fill="#C2361F"/><circle cx="32" cy="32" r="21" fill="none" stroke="#FDF0EC" stroke-width="2" stroke-dasharray="3 3"/><path d="M22 33l7 7 13-15" fill="none" stroke="#FFFDF8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <h1 class="bm-name">Award<em>Shield</em></h1>
+  </div>
+  <app-hands class="rise" style="--i:1"/>
   <div class="wrap hero-grid">
     <div class="copy">
-      <span class="pill rise" style="--i:0"><i class="dot" style="color:var(--rs)"></i> Public tender audit · Gemini & Google ADK</span>
-      <h1 class="display big rise" style="--i:1">The cheapest bid<br>is not always the <em>cheapest.</em></h1>
-      <p class="lead rise" style="--i:2">
-        <b>TrueCost</b> reads every bid and works out what each will really cost over the whole contract.<br>
-        <b>RedSeal</b> then tries to break that award, and proves every objection by re-running the numbers.
-      </p>
-      <div class="row ctas rise" style="--i:3">
-        <a class="btn" routerLink="/case/{{CASE_ID}}">See the e-bus audit <span class="ico"><app-icon name="arrow"/></span></a>
+      <span class="pill rise" style="--i:0"><i class="dot" style="color:var(--rs)"></i> AI audit for public tenders · Gemini & Google ADK</span>
+      <h2 class="display big rise" style="--i:1">The cheapest bid<br>is not always the <em>cheapest.</em></h2>
+      <p class="lead rise" style="--i:2">Tenders are awarded on the price on paper. But prices rise over the contract, and one misread figure can change the winner.</p>
+      <div class="agents rise" style="--i:3">
+        <div class="ag ag-tc"><i class="dot"></i><div><b>TrueCost AI: finds the real cost.</b> Reads every bid and its price-adjustment formula, fetches official inflation data, and calculates what each bid will really cost over the whole contract.</div></div>
+        <div class="ag ag-rs"><i class="dot"></i><div><b>RedSeal AI: tries to prove TrueCost AI wrong.</b> Re-checks every figure, rule and assumption. No award is signed until it survives the attack.</div></div>
       </div>
-      <dl class="facts rise" style="--i:4">
-        <div><dt class="overline">Tender</dt><dd>E-bus operations, 12 years</dd></div>
-        <div><dt class="overline">Bids</dt><dd class="mono">3</dd></div>
-        <div><dt class="overline">At stake</dt><dd class="mono">₹13.61 cr</dd></div>
-      </dl>
+      <p class="small muted rise" style="--i:4">The AI reads the documents. Code does every calculation.</p>
+      <div class="row ctas rise" style="--i:5">
+        <a class="btn" routerLink="/case/{{CASE_ID}}">See a real audit <span class="ico"><app-icon name="arrow"/></span></a>
+      </div>
     </div>
     <app-hero-doc class="rise" style="--i:2"/>
   </div>
@@ -43,7 +47,7 @@ import { HeroDoc } from './hero-doc';
     <div class="grid-2 parts">
       <a class="part tcp card hoverable reveal" appReveal routerLink="/case/{{CASE_ID}}/truecost">
         <div class="ph-h"><span class="pill tc"><i class="dot"></i> Part one</span><app-icon name="arrow" [size]="18"/></div>
-        <h3 class="name serif">TrueCost</h3>
+        <h3 class="name serif">TrueCost AI</h3>
         <p class="lead">Reads the tender and every bid. Pulls rates, formulas and indices, each with a verbatim quote, a page number and a live government source.</p>
         <ul class="ticks">
           <li><app-icon name="check" [size]="15"/> Gemini agents in parallel, one per bidder</li>
@@ -55,7 +59,7 @@ import { HeroDoc } from './hero-doc';
 
       <a class="part rsp card hoverable reveal" appReveal routerLink="/case/{{CASE_ID}}/redseal">
         <div class="ph-h"><span class="pill rs"><i class="dot"></i> Part two</span><app-icon name="arrow" [size]="18"/></div>
-        <h3 class="name serif">RedSeal</h3>
+        <h3 class="name serif">RedSeal AI</h3>
         <p class="lead">An adversarial auditor. It hunts for anything that could change the winner, then lets the engine decide whether the objection actually matters.</p>
         <ul class="ticks">
           <li><app-icon name="check" [size]="15"/> Words vs figures, tender rules, terms</li>
@@ -94,7 +98,7 @@ import { HeroDoc } from './hero-doc';
   <div class="wrap">
     <div class="sh reveal" appReveal>
       <span class="overline">Three possible verdicts</span>
-      <h2 class="display">RedSeal can only say <em>what the engine proves.</em></h2>
+      <h2 class="display">RedSeal AI can only say <em>what the engine proves.</em></h2>
     </div>
     <div class="grid-3">
       @for (v of verdicts; track v.t; let i = $index) {
@@ -144,12 +148,23 @@ import { HeroDoc } from './hero-doc';
 </section>
 `,
 styles: [`
-  .hero { padding: var(--s16) 0 var(--s20); overflow: hidden; }
+  .hero { padding: var(--s6) 0 var(--s20); overflow: hidden; }
+  .brandmark { display: flex; justify-content: center; align-items: center; gap: var(--s4); margin-bottom: 4px; }
+  app-hands { margin: 0 0 var(--s5); padding-left: calc(56px + var(--s4)); }
+  .bm-logo { filter: drop-shadow(0 10px 16px rgba(120, 30, 10, .25)); }
+  .bm-name { font: 400 clamp(40px, 4.6vw, 64px)/1 var(--serif); letter-spacing: -0.025em; color: var(--ink); }
+  .bm-name em { font-style: italic; color: var(--rs); }
   .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--s16); align-items: center; }
   .copy { display: grid; gap: var(--s6); justify-items: start; }
-  .big { font-size: clamp(42px, 5.6vw, 76px); line-height: .98; letter-spacing: -0.025em; }
+  .big { font-size: clamp(38px, 4.6vw, 64px); line-height: .98; letter-spacing: -0.025em; }
   .tc { color: var(--tc); font-weight: 600; } .rs { color: var(--rs); font-weight: 600; }
   .ctas { flex-wrap: wrap; }
+  .copy .lead { font-size: 17.5px; }
+  .agents { display: grid; gap: var(--s3); }
+  .ag { display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: var(--s3); padding: var(--s3) var(--s4); background: var(--sheet); border: 1px solid var(--rule); border-left-width: 3px; border-radius: var(--r2); font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+  .ag b { color: var(--ink); font-weight: 600; } .ag .dot { margin-top: 8px; }
+  .ag-tc { border-left-color: var(--tc); } .ag-tc .dot { color: var(--tc); } .ag-tc b { color: var(--tc-700); }
+  .ag-rs { border-left-color: var(--rs); } .ag-rs .dot { color: var(--rs); } .ag-rs b { color: var(--rs-700); }
   .facts { display: flex; gap: var(--s10); margin: var(--s2) 0 0; padding-top: var(--s5); border-top: 1px solid var(--rule); }
   .facts dd { margin: 4px 0 0; color: var(--ink); font-weight: 500; }
 
@@ -202,19 +217,33 @@ styles: [`
     .cta { flex-direction: column; align-items: flex-start; padding: var(--s8); }
   }
   @media (max-width: 560px) {
-    .hero { padding-top: var(--s10); } .facts { gap: var(--s6); grid-template-columns: minmax(0, 1fr); }
+    .hero { padding-top: var(--s8); } .brandmark { margin-bottom: var(--s8); } .bm-logo { width: 44px; height: 44px; } .brandmark { gap: var(--s3); } app-hands { padding-left: calc(44px + var(--s3)); } .facts { gap: var(--s6); grid-template-columns: minmax(0, 1fr); }
     .tiles { grid-template-columns: minmax(0, 1fr); }
     .stack { margin: 0; border-radius: 0; } .name { font-size: 44px; } .part { padding: var(--s6); }
     .seal-mini { display: none; }
   }
 `] })
 export class Landing {
+  private readonly brandmark = viewChild.required<ElementRef<HTMLElement>>('brandmark');
+
+  constructor() {
+    const brand = inject(BrandState);
+    let io: IntersectionObserver | undefined;
+    // the top bar hides its small logo while this big one is visible (it is shown again on scroll)
+    afterNextRender(() => {
+      if (typeof IntersectionObserver === 'undefined') return;
+      io = new IntersectionObserver(([e]) => brand.heroBrandVisible.set(e.isIntersecting), { rootMargin: '-72px 0px 0px 0px' });
+      io.observe(this.brandmark().nativeElement);
+    });
+    inject(DestroyRef).onDestroy(() => { io?.disconnect(); brand.heroBrandVisible.set(false); });
+  }
+
   protected readonly CASE_ID = CASE_ID;
   protected readonly steps = [
     { k: 'in', kind: 'INPUT', icon: 'file', t: 'Tender & bids', d: 'PDFs exactly as the buyer received them.' },
-    { k: 'ai', kind: 'AI · GEMINI', icon: 'search', t: 'TrueCost', d: 'Extracts every rate, formula and index, each quoted and sourced.' },
+    { k: 'ai', kind: 'AI · GEMINI', icon: 'search', t: 'TrueCost AI', d: 'Extracts every rate, formula and index, each quoted and sourced.' },
     { k: 'code', kind: 'CODE', icon: 'code', t: 'Engine', d: '144 months of escalation, discounted. Same inputs, same answer.' },
-    { k: 'rsk', kind: 'AI + PROOF', icon: 'shield', t: 'RedSeal', d: 'Challenges the award. Only engine re-runs count as proof.' },
+    { k: 'rsk', kind: 'AI + PROOF', icon: 'shield', t: 'RedSeal AI', d: 'Challenges the award. Only engine re-runs count as proof.' },
     { k: 'out', kind: 'OUTPUT', icon: 'scale', t: 'Verdict', d: 'Robust, understated or not robust, with a proof pack.' },
   ];
   protected readonly verdicts = [
@@ -224,7 +253,7 @@ export class Landing {
   ];
   protected readonly google = [
     { c: 'var(--g-blue)', t: 'Gemini', d: 'Reads PDFs, extracts terms, writes challenges and the final narrative.' },
-    { c: 'var(--g-red)', t: 'ADK SequentialAgent', d: 'Orchestrates read -> model -> finalise, and the RedSeal hunt.' },
+    { c: 'var(--g-red)', t: 'ADK SequentialAgent', d: 'Orchestrates read -> model -> finalise, and the RedSeal AI hunt.' },
     { c: 'var(--g-yellow)', t: 'ADK ParallelAgent', d: 'One commercial agent per bidder, running at the same time.' },
     { c: 'var(--g-green)', t: 'Vertex AI web grounding', d: 'Finds the official index publisher for each cost driver.' },
   ];
