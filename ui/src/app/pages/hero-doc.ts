@@ -46,7 +46,7 @@ const STAGES: Stage[] = [
       { name: 'MetroLink', color: '#2447D8', value: 562.64, label: '₹562.64 cr' },
       { name: 'UrbanDrive', color: '#8A6F3E', value: 575.23, label: '₹575.23 cr' },
     ],
-    explain: 'RedSeal AI tries to break the award. GreenMetro wrote ₹63.00 in figures but "Sixty Six" in words, and the tender says words win. Re-run at ₹66: MetroLink wins.',
+    explain: 'RedSeal AI tries to break the award. GreenMetro wrote ₹63.00 in figures but "Sixty Six" in words, and the Indian tender says words win. Re-run at ₹66: MetroLink wins.',
   },
 ];
 
@@ -61,10 +61,11 @@ const TOUCH_HOLD_MS = 10000;
 <div class="stage" [attr.data-who]="s().who" (mouseenter)="hold(true)" (mouseleave)="hold(false)"
      (focusin)="hold(true)" (focusout)="hold(false)" (pointerdown)="touched($event)">
   <div class="sheet-shadow"></div>
-  <article class="card" aria-label="The e-bus tender in three steps">
+  <article class="card" aria-label="An Indian e-bus tender in three steps">
     <div class="kicker">REAL PUBLIC TENDER 1376/CRUT · ODISHA, INDIA</div>
     <p class="about">The state transport body is hiring an operator to buy, run and maintain <b>200 electric buses</b> for <b>12 years</b>, paid per km driven. Three operators bid. Who should win?</p>
 
+    <div class="tabrow">
     <div class="tabs" role="tablist">
       @for (st of stages; track st.tab; let i = $index) {
         @if (i > 0) { <app-icon class="sep" [class.lit]="i <= idx()" name="arrow" [size]="13" aria-hidden="true"/> }
@@ -72,6 +73,11 @@ const TOUCH_HOLD_MS = 10000;
           <span class="n">{{ i + 1 }}</span>{{ st.tab }}
         </button>
       }
+    </div>
+      <button type="button" class="pp" (click)="togglePlay()" [attr.aria-label]="stopped() ? 'Play the steps' : 'Pause the steps'"
+              [attr.aria-pressed]="stopped()" [title]="stopped() ? 'Play' : 'Pause'">
+        <app-icon [name]="stopped() ? 'play' : 'pause'" [size]="13"/>
+      </button>
     </div>
 
     <h3 class="title">{{ s().title }}</h3>
@@ -97,30 +103,29 @@ const TOUCH_HOLD_MS = 10000;
     }
 
     <p class="explain">{{ s().explain }}</p>
+    @if (idx() === 2) {
+    <div class="answer"><b>AwardShield\u2019s answer:</b> the award is not safe. The committee must decide which price counts before signing.</div>
+    }
     <div class="seal-slot" [class.in]="idx() === 2"><app-seal [size]="124"/></div>
   </article>
 
-  <div class="foot">
-    @if (idx() > 0) {
-      <button class="replay" type="button" (click)="go(0)" aria-label="Back to the first step">
-        <app-icon name="replay" [size]="14"/> Start over
-      </button>
-    }
-    <span class="answer" [class.in]="idx() === 2"><b>AwardShield\u2019s answer:</b> The award is not safe. The committee must decide which price counts before signing.</span>
-  </div>
 </div>
 `,
 styles: [`
   :host { display: block; overflow-x: clip; overflow-y: visible; }
   .stage { position: relative; padding: 14px 22px 8px 0; }
   .sheet-shadow { position: absolute; inset: 28px 40px 70px 20px; background: var(--paper-2); border: 1px solid var(--rule); border-radius: 18px; transform: rotate(-2.2deg); }
-  .card { position: relative; background: var(--sheet); border: 1px solid var(--rule); border-radius: 18px; padding: 22px 26px 20px; box-shadow: var(--shadow-doc), inset 0 1px 0 #fff; min-height: 568px; }
+  .card { position: relative; background: var(--sheet); border: 1px solid var(--rule); border-radius: 18px; padding: 22px 26px 20px; box-shadow: var(--shadow-doc), inset 0 1px 0 #fff; min-height: 0; }
   .kicker { font: 600 10.5px/1.3 var(--mono); letter-spacing: .1em; color: var(--ink-3); padding-right: 90px; }
   .about { margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: var(--ink-2); padding-right: 70px; } .about b { color: var(--ink); font-weight: 600; }
   .sep { color: var(--ink-4, #b9b4a8); flex: none; transition: color 300ms; } .sep.lit { color: var(--ink-2); }
   .tab.next { color: var(--ink-2); box-shadow: inset 0 0 1px var(--rule-2); }
   .tab.next:hover { background: var(--sheet); color: var(--ink); }
-  .tabs { display: flex; align-items: center; gap: 4px; margin: 14px 0 16px; padding: 4px; background: var(--paper); border: 1px solid var(--rule); border-radius: 999px; width: fit-content; max-width: 100%; }
+  .tabrow { display: flex; align-items: center; gap: 8px; margin: 14px 0 16px; }
+  .pp { flex: none; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--rule); background: var(--paper); color: var(--ink-2); display: grid; place-items: center; cursor: pointer; transition: background 200ms, color 200ms; }
+  .pp:hover { background: var(--sheet); color: var(--ink); box-shadow: var(--shadow-1); }
+  .pp[aria-pressed='true'] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .tabs { min-width: 0; display: flex; align-items: center; gap: 4px; margin: 0; padding: 4px; background: var(--paper); border: 1px solid var(--rule); border-radius: 999px; width: fit-content; max-width: 100%; }
   .tab { border: 0; background: transparent; border-radius: 999px; padding: 7px 7px 8px; font: 500 12.5px/1 var(--sans); color: var(--ink-3); cursor: pointer; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; transition: background 250ms, color 250ms; }
   .tab .n { width: 18px; height: 18px; border-radius: 50%; display: inline-grid; place-items: center; font: 600 10.5px/1 var(--mono); background: var(--rule); color: var(--ink-2); }
   .tab.on { background: var(--sheet); color: var(--ink); box-shadow: var(--shadow-2); }
@@ -151,11 +156,8 @@ styles: [`
   .explain { margin: 14px 0 0; font-size: 14px; line-height: 1.55; color: var(--ink-2); min-height: 66px; animation: fade 450ms var(--ease-out); }
   .seal-slot { position: absolute; right: -30px; top: -42px; opacity: 0; transform: scale(1.7) rotate(-26deg); transition: opacity 260ms ease, transform 520ms var(--ease-seal); pointer-events: none; }
   .seal-slot.in { opacity: 1; transform: scale(1) rotate(-12deg); transition-delay: 600ms; }
-  .foot { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
-  .replay { flex: none; border: 1px solid var(--rule-2); background: var(--sheet); border-radius: 999px; padding: 6px 12px; font: 500 12.5px/1 var(--sans); color: var(--ink-3); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-  .replay:hover { color: var(--ink); }
-  .answer { font-size: 13px; line-height: 1.45; color: var(--ink-2); opacity: 0; transform: translateY(4px); transition: opacity 400ms 900ms, transform 400ms; }
-  .answer.in { opacity: 1; transform: none; } .answer b { color: var(--rs-700); }
+  .answer { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--rs-50); border: 1px solid var(--rs-100); font-size: 13.5px; line-height: 1.45; color: var(--ink); animation: fade 400ms var(--ease-out) 150ms both; }
+  .answer b { color: var(--rs-700); }
   @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
   @media (max-width: 900px) {
     .stage { padding: 30px 0 4px; } .sheet-shadow { display: none; } .card { padding: 18px 16px; min-height: 0; }
@@ -167,6 +169,7 @@ styles: [`
     .row { grid-template-columns: 88px minmax(0, 1fr) 82px; gap: 8px; padding: 0 6px; } .badge { display: none; }
     .nm, .val { font-size: 12.5px; } .note { display: none; }
   }
+  @media (max-width: 420px) { .tab .n { display: none; } .tab { padding: 6px 9px; } .pp { width: 30px; height: 30px; } }
   @media (max-width: 360px) { .tab { font-size: 10.5px; padding: 5px 6px 5px 5px; gap: 4px; } .tab .n { display: none; } }
 `] })
 export class HeroDoc {
@@ -186,17 +189,20 @@ export class HeroDoc {
   /** Autoplay: the three steps loop every STEP_MS; paused while the pointer (or keyboard focus) is on the
    *  card - someone is explaining it - and for a while after a tap on touch screens. Off for reduced motion. */
   private readonly paused = signal(false);
+  /** The presenter's pause button: no autoplay until Play is pressed again. */
+  protected readonly stopped = signal(false);
   private touchUntil = 0;
   constructor() {
     let timer: ReturnType<typeof setInterval> | undefined;
     afterNextRender(() => {
       if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       timer = setInterval(() => {
-        if (!this.paused() && Date.now() > this.touchUntil) this.idx.set((this.idx() + 1) % STAGES.length);
+        if (!this.paused() && !this.stopped() && Date.now() > this.touchUntil) this.idx.set((this.idx() + 1) % STAGES.length);
       }, STEP_MS);
     });
     inject(DestroyRef).onDestroy(() => clearInterval(timer));
   }
   protected hold(on: boolean): void { this.paused.set(on); }
+  protected togglePlay(): void { this.stopped.update((v) => !v); }
   protected touched(e: PointerEvent): void { if (e.pointerType !== 'mouse') this.touchUntil = Date.now() + TOUCH_HOLD_MS; }
 }

@@ -3,6 +3,7 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, of, switchMap } from 'rxjs';
 import { Api, RunEvent, RunRecord } from '../core/api';
 import { Icon } from '../shared/icon';
+import { AgentState, AgentTree } from '../shared/agent-tree';
 import { CaseHead } from './case-shell';
 
 /** Plays a whole recorded run in about this many seconds, whatever its real length. */
@@ -19,7 +20,7 @@ type AgentRow = { name: string; code: boolean; state: 'waiting' | 'running' | 'd
 /** Time-coded replay of a recorded ADK run (truecost / truecost_answers / redseal), from api/cases/{id}/runs. */
 @Component({
   selector: 'app-run',
-  imports: [Icon, CaseHead],
+  imports: [Icon, CaseHead, AgentTree],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 <app-case-head [id]="id()" part="Agent run" kicker="Replay" tone="var(--g-blue)"
@@ -42,6 +43,10 @@ type AgentRow = { name: string; code: boolean; state: 'waiting' | 'running' | 'd
       </div>
 
       @if (rec(); as r) {
+        <div class="card card-b treecard">
+          <div class="row th"><span class="overline">The agent tree</span><span class="spacer"></span><span class="small muted">lights up as the replay reaches each agent</span></div>
+          <app-agent-tree [states]="treeStates()" [show]="sel() === 'redseal' || (!sel() && names()[0] === 'redseal') ? 'redseal' : 'truecost'" [bidders]="r.bidders ?? bidderNames"/>
+        </div>
         <div class="console player">
           <div class="row ctl">
             <button class="btn btn-sm play" type="button" (click)="toggle()" [attr.aria-label]="playing() ? 'Pause' : 'Play'">
@@ -124,6 +129,7 @@ type AgentRow = { name: string; code: boolean; state: 'waiting' | 'running' | 'd
     '.what { display: grid; gap: 2px; min-width: 0; } .det { font-size: 11.5px; color: var(--console-ink-2); overflow-wrap: anywhere; }',
     '.idle { color: var(--console-ink-2); padding: var(--s4); }',
     '.note { max-width: 860px; }',
+    '.treecard { display: grid; gap: var(--s4); } .th { flex-wrap: wrap; }',
     '@media (max-width: 900px) { .cols { grid-template-columns: minmax(0, 1fr); } .ev { grid-template-columns: 48px minmax(0, 1fr); } .ev .who { grid-column: 2; } .ev .what { grid-column: 2; } }',
     '@media (max-width: 560px) { .player { padding: var(--s4); } }',
   ],
@@ -162,6 +168,11 @@ export class RunPage {
   /** Newest first, so the latest step is always visible. */
   protected readonly feed = computed(() => [...this.shown()].reverse().slice(0, 80));
   private readonly started = signal(false);
+
+  protected readonly bidderNames = ['GreenMetro', 'MetroLink', 'UrbanDrive'];
+  /** agent name -> replay state, for the tree */
+  protected readonly treeStates = computed<Record<string, AgentState>>(() =>
+    Object.fromEntries(this.agents().map((a) => [a.name, a.state])));
 
   protected readonly agents = computed<AgentRow[]>(() => {
     const r = this.rec(); if (!r) return [];

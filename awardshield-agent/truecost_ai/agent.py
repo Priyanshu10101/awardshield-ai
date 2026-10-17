@@ -41,7 +41,7 @@ from . import prompts
 from .doc_reader import Case, pack
 from .finalizer import make_finalizer
 from .schemas import TenderReport
-from .settings import CASE, apply_vertex_env, generate_config, model_for
+from .settings import CASE, MAX_PARALLEL_BIDDERS, apply_vertex_env, generate_config, model_for
 from .subagents.commercial import make_commercial
 from .subagents.cost_model import make_cost_model
 from .subagents.escalation import make_escalation
@@ -103,17 +103,33 @@ def make_orchestrator(case: Case) -> LlmAgent:
     )
 
 
+def bidders_stage(suppliers: list[str], width: int | None = None):
+    """Every bidder's branch, at most `width` at the same time (config max_parallel_bidders).
+
+    Up to `width` bidders: one ParallelAgent. More: waves of `width` - a ParallelAgent per wave, the
+    waves one after another in a SequentialAgent - so 20 bidders never fire 20 branches at once
+    (quota / rate limits). Each branch reads only the tender + its own bid, so cost grows linearly."""
+    width = width or MAX_PARALLEL_BIDDERS
+    branches = [make_bidder(s) for s in suppliers]
+    if len(branches) <= width:
+        return ParallelAgent(name="bidders", description="Every bidder's pipeline at the same time.",
+                             sub_agents=branches)
+    waves = [branches[i:i + width] for i in range(0, len(branches), width)]
+    return SequentialAgent(
+        name="bidders",
+        description=f"{len(branches)} bidders in {len(waves)} waves of up to {width}.",
+        sub_agents=[ParallelAgent(name=f"bidders_wave_{n}", description=f"Wave {n}: {len(w)} bidders at once.",
+                                  sub_agents=w) for n, w in enumerate(waves, 1)],
+    )
+
+
 def build_root(case: Case) -> SequentialAgent:
     return SequentialAgent(
         name="truecost",
         description=f"TrueCost for {case.rfq_id}: tender volume, every bidder in parallel, merged report.",
         sub_agents=[
             volume_extractor.clone(),
-            ParallelAgent(
-                name="bidders",
-                description="Every bidder's pipeline at the same time.",
-                sub_agents=[make_bidder(s) for s in case.supplier_names],
-            ),
+            bidders_stage(case.supplier_names),
             make_orchestrator(case),
         ],
     )

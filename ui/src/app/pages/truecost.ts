@@ -3,13 +3,14 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, of, switchMap } from 'rxjs';
 import { Api, BIDDER_COLOR } from '../core/api';
 import { Icon } from '../shared/icon';
+import { AgentTree } from '../shared/agent-tree';
 import { CaseHead } from './case-shell';
 
 interface Ev { document?: string; page?: string; quote?: string }
 
 @Component({
   selector: 'app-truecost',
-  imports: [Icon, CaseHead],
+  imports: [Icon, CaseHead, AgentTree],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 <app-case-head [id]="id()" part="TrueCost AI" kicker="Part one · TrueCost AI" tone="var(--tc)"
@@ -18,6 +19,10 @@ interface Ev { document?: string; page?: string; quote?: string }
 
 @if (t(); as t) {
   <section class="wrap body">
+    <details class="how">
+      <summary><span class="overline">How TrueCost AI works</span><span class="small muted"> · 14 AI sub-agents, one branch per bidder in parallel</span></summary>
+      <app-agent-tree show="truecost" [bidders]="names()"/>
+    </details>
     <div class="row bar">
       <div class="seg" role="tablist" aria-label="Bidder">
         @for (n of names(); track n) {
@@ -115,6 +120,7 @@ interface Ev { document?: string; page?: string; quote?: string }
 `,
 styles: [`
   .body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s8); }
+  .how { border: 1px solid var(--rule); border-radius: var(--r3); background: var(--sheet); padding: var(--s3) var(--s5); } .how summary { cursor: pointer; padding: 4px 0; } .how[open] summary { margin-bottom: var(--s4); }
   .bar { flex-wrap: wrap; } .bar .seg { max-width: 100%; overflow-x: auto; scrollbar-width: none; } .bar .seg button { white-space: nowrap; display: inline-flex; align-items: center; }
   .sw { width: 9px; height: 9px; border-radius: 3px; display: inline-block; margin-right: 8px; }
   .cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s8); align-content: start; }

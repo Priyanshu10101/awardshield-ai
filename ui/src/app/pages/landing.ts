@@ -7,10 +7,11 @@ import { Reveal } from '../shared/reveal';
 import { Seal } from '../shared/seal';
 import { HeroDoc } from './hero-doc';
 import { Hands } from '../shared/hands';
+import { AgentTree } from '../shared/agent-tree';
 
 @Component({
   selector: 'app-landing',
-  imports: [RouterLink, Icon, Reveal, Seal, HeroDoc, Hands],
+  imports: [RouterLink, Icon, Reveal, Seal, HeroDoc, Hands, AgentTree],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 <section class="hero">
@@ -50,7 +51,7 @@ import { Hands } from '../shared/hands';
         <h3 class="name serif">TrueCost AI</h3>
         <p class="lead">Reads the tender and every bid. Pulls rates, formulas and indices, each with a verbatim quote, a page number and a live government source.</p>
         <ul class="ticks">
-          <li><app-icon name="check" [size]="15"/> Gemini agents in parallel, one per bidder</li>
+          <li><app-icon name="check" [size]="15"/> AI sub-agents in parallel, one branch per bidder</li>
           <li><app-icon name="check" [size]="15"/> Price indices fetched and frozen with a hash</li>
           <li><app-icon name="check" [size]="15"/> Engine projects 144 months, discounted</li>
         </ul>
@@ -93,6 +94,19 @@ import { Hands } from '../shared/hands';
   </div>
 </section>
 
+<!-- GOOGLE STACK + AGENT TREE -->
+<section class="section console stack" id="agents">
+  <div class="wrap">
+    <div class="sh reveal" appReveal>
+      <span class="overline" style="color:var(--console-ink-2)">Built with Google AI</span>
+      <h2 class="display">A multi-agent system, <em>not a prompt.</em></h2>
+      <p class="lead stacklead">2 root agents, TrueCost AI and RedSeal AI, with 17 AI sub-agents on Gemini, several running in parallel. Every number between them comes from the deterministic engine.</p>
+    </div>
+    <div class="treewrap reveal" appReveal><app-agent-tree [dark]="true"/></div>
+    <p class="small treenote">The real tree from the code (truecost_ai/agent.py, redseal_ai/agent.py), shown for this Indian tender's 3 bidders. <a routerLink="/case/{{CASE_ID}}/run">Watch it run →</a></p>
+  </div>
+</section>
+
 <!-- VERDICT RULES -->
 <section class="section band">
   <div class="wrap">
@@ -106,25 +120,6 @@ import { Hands } from '../shared/hands';
           <span class="pill" [class]="'pill ' + v.tone"><i class="dot"></i> {{ v.t }}</span>
           <p>{{ v.d }}</p>
           @if (v.cur) { <span class="now small"><app-icon name="alert" [size]="14"/> This case</span> }
-        </div>
-      }
-    </div>
-  </div>
-</section>
-
-<!-- GOOGLE STACK -->
-<section class="section console stack">
-  <div class="wrap">
-    <div class="sh reveal" appReveal>
-      <span class="overline" style="color:var(--console-ink-2)">Built with Google AI</span>
-      <h2 class="display">A multi-agent system, <em>not a prompt.</em></h2>
-    </div>
-    <div class="tiles">
-      @for (g of google; track g.t) {
-        <div class="tile reveal" appReveal>
-          <span class="gdot" [style.background]="g.c"></span>
-          <div class="t">{{ g.t }}</div>
-          <p class="small">{{ g.d }}</p>
         </div>
       }
     </div>
@@ -154,7 +149,7 @@ styles: [`
   .bm-logo { filter: drop-shadow(0 10px 16px rgba(120, 30, 10, .25)); }
   .bm-name { font: 400 clamp(40px, 4.6vw, 64px)/1 var(--serif); letter-spacing: -0.025em; color: var(--ink); }
   .bm-name em { font-style: italic; color: var(--rs); }
-  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--s16); align-items: center; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--s16); align-items: start; }
   .copy { display: grid; gap: var(--s6); justify-items: start; }
   .big { font-size: clamp(38px, 4.6vw, 64px); line-height: .98; letter-spacing: -0.025em; }
   .tc { color: var(--tc); font-weight: 600; } .rs { color: var(--rs); font-weight: 600; }
@@ -192,16 +187,15 @@ styles: [`
   .eg { margin-top: var(--s2); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
   .seal-mini { position: absolute; right: 22px; bottom: 18px; transform: rotate(-12deg); }
 
+  .treenote { margin-top: var(--s4); color: var(--console-ink-2); } .treenote a { color: #8fa6ff; }
+  .treewrap { margin-top: var(--s2); }
+  .stacklead { color: var(--console-ink-2); }
   .verdict { display: grid; gap: var(--s3); align-content: start; }
   .verdict p { font-size: 15px; }
   .verdict.cur { border-color: var(--rs-100); box-shadow: 0 0 4px var(--rs-50); }
   .now { display: inline-flex; gap: 6px; align-items: center; color: var(--rs); font-weight: 600; }
 
   .stack { border-radius: var(--r4); margin: 0 var(--s4); }
-  .tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--console-line); border: 1px solid var(--console-line); border-radius: var(--r3); overflow: hidden; }
-  .tile { background: var(--console); padding: var(--s6); display: grid; gap: 8px; align-content: start; }
-  .tile .t { color: var(--console-ink); font: 600 16px/1.3 var(--sans); }
-  .gdot { width: 10px; height: 10px; border-radius: 3px; }
 
   .cta { padding: var(--s12); display: flex; justify-content: space-between; align-items: center; gap: var(--s8); }
   .cta > div:first-child { display: grid; gap: var(--s3); max-width: 560px; }
@@ -213,12 +207,10 @@ styles: [`
     .rail::before { left: 22px; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 1.5px dashed var(--rule-2); }
     .step { grid-template-columns: 44px minmax(0, 1fr); column-gap: var(--s4); align-items: center; }
     .badge { grid-row: span 3; margin: 0; }
-    .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cta { flex-direction: column; align-items: flex-start; padding: var(--s8); }
   }
   @media (max-width: 560px) {
     .hero { padding-top: var(--s8); } .brandmark { margin-bottom: var(--s8); } .bm-logo { width: 44px; height: 44px; } .brandmark { gap: var(--s3); } app-hands { padding-left: calc(44px + var(--s3)); } .facts { gap: var(--s6); grid-template-columns: minmax(0, 1fr); }
-    .tiles { grid-template-columns: minmax(0, 1fr); }
     .stack { margin: 0; border-radius: 0; } .name { font-size: 44px; } .part { padding: var(--s6); }
     .seal-mini { display: none; }
   }
@@ -250,11 +242,5 @@ export class Landing {
     { t: 'Certified robust', tone: 'ok', cur: false, d: 'No verified challenge changes the winner, and no bid sits near its flip point.' },
     { t: 'Understated', tone: 'warn', cur: false, d: 'The winner holds, but the true cost or the margin is materially different from what was reported.' },
     { t: 'Not robust · decision required', tone: 'rs', cur: true, d: 'A credible reading of the tender changes the winner. The buyer must decide which reading applies.' },
-  ];
-  protected readonly google = [
-    { c: 'var(--g-blue)', t: 'Gemini', d: 'Reads PDFs, extracts terms, writes challenges and the final narrative.' },
-    { c: 'var(--g-red)', t: 'ADK SequentialAgent', d: 'Orchestrates read -> model -> finalise, and the RedSeal AI hunt.' },
-    { c: 'var(--g-yellow)', t: 'ADK ParallelAgent', d: 'One commercial agent per bidder, running at the same time.' },
-    { c: 'var(--g-green)', t: 'Vertex AI web grounding', d: 'Finds the official index publisher for each cost driver.' },
   ];
 }

@@ -14,7 +14,7 @@ import { CaseHead } from './case-shell';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 <app-case-head [id]="id()" kicker="Decision brief" [title]="d()?.title || 'Loading...'"
-  [sub]="d() ? (d()!.buyer + ' · ' + (d()!.months / 12) + '-year contract from ' + d()!.start) : ''"/>
+  [sub]="d() ? (d()!.buyer + ', Odisha, India · ' + (d()!.months / 12) + '-year contract from ' + d()!.start) : ''"/>
 
 @if (d(); as d) {
   <section class="wrap body">
@@ -31,7 +31,7 @@ import { CaseHead } from './case-shell';
     <!-- outcomes -->
     @if (d.verdict?.status === 'OVERTURNED') {
       <div class="blk">
-        <div class="bh"><span class="overline">The buyer\u2019s decision</span><h3 class="h1">Which reading of the tender applies?</h3></div>
+        <div class="bh"><span class="overline">The buyer\u2019s decision</span><h3 class="h1">Which reading of this Indian tender applies?</h3></div>
         <div class="grid-3">
           @for (o of outcomes(); track o.rule; let i = $index) {
             <div class="card card-b oc rise" [style.--i]="i">
@@ -143,9 +143,9 @@ export class Decision {
   protected readonly outcomes = computed(() => {
     const d = this.d(); if (!d) return [];
     const out = [
-      { rule: 'The rate in words prevails over the figure', winner: d.acts.after?.winner ?? d.acts.lifetime.winner, why: d.acts.after ? `As the tender\u2019s own clause says. ${d.acts.after.change}.` : 'No conflicting figure found.' },
+      { rule: 'The rate in words prevails over the figure', winner: d.acts.after?.winner ?? d.acts.lifetime.winner, why: d.acts.after ? `As the Indian tender\u2019s own clause says. ${d.acts.after.change}.` : 'No conflicting figure found.' },
       { rule: 'The lower of the two readings is taken', winner: d.acts.lifetime.winner, why: `On its figure, ${d.acts.lifetime.winner} is ${cr(d.acts.lifetime.margin_cr)} cheaper over twelve years.` },
-      { rule: 'The tender\u2019s year-one price metric is used', winner: d.acts.year_one_winner, why: 'Lowest aggregate payment in the first year, ignoring price adjustment' },
+      { rule: 'The Indian tender\u2019s year-one price metric is used', winner: d.acts.year_one_winner, why: 'Lowest aggregate payment in the first year, ignoring price adjustment' },
     ];
     return out;
   });
@@ -154,6 +154,6 @@ export class Decision {
     { t: 'TrueCost AI', path: 'truecost', icon: 'search', c: 'var(--tc)', d: 'Every extracted figure with its quote, page and source.' },
     { t: 'Engine', path: 'engine', icon: 'sliders', c: 'var(--ink)', d: 'The 12-year projection. Change any input and re-run it live.' },
     { t: 'RedSeal AI', path: 'redseal', icon: 'shield', c: 'var(--rs)', d: 'Each challenge, its evidence and the engine re-run.' },
-    { t: 'Agent run', path: 'run', icon: 'play', c: 'var(--g-blue)', d: 'Replay what the Gemini agents did, step by step.' },
+    { t: 'Agent run', path: 'run', icon: 'play', c: 'var(--g-blue)', d: 'Replay what the AI sub-agents did, step by step.' },
   ];
 }

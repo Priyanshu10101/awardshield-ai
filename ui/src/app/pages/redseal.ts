@@ -4,6 +4,7 @@ import { catchError, of, switchMap } from 'rxjs';
 import { Api, BIDDER_COLOR, Challenge, ProofPack, cr } from '../core/api';
 import { Icon } from '../shared/icon';
 import { Seal } from '../shared/seal';
+import { AgentTree } from '../shared/agent-tree';
 import { CaseHead } from './case-shell';
 
 const KIND: Record<string, string> = {
@@ -13,7 +14,7 @@ const KIND: Record<string, string> = {
 
 @Component({
   selector: 'app-redseal',
-  imports: [Icon, Seal, CaseHead],
+  imports: [Icon, Seal, CaseHead, AgentTree],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 <app-case-head [id]="id()" part="RedSeal AI" kicker="Part two · RedSeal AI" tone="var(--rs)"
@@ -22,6 +23,10 @@ const KIND: Record<string, string> = {
 
 @if (p(); as p) {
   <section class="wrap body">
+    <details class="how">
+      <summary><span class="overline">How RedSeal AI works</span><span class="small muted"> · 2 challengers in parallel, a code prover, a checked narrator</span></summary>
+      <app-agent-tree show="redseal" [bidders]="['GreenMetro', 'MetroLink', 'UrbanDrive']"/>
+    </details>
     <div class="card sum">
       <div class="sc">
         <span class="pill" [class.rs]="p.status === 'OVERTURNED'" [class.warn]="p.status === 'UNDERSTATED'" [class.ok]="p.status === 'CERTIFIED_ROBUST'">
@@ -137,6 +142,7 @@ styles: [
   '.sc { min-width: 0; justify-items: start; display: grid; gap: var(--s4); align-content: start; max-width: 720px; }',
   '.stats { display: flex; flex-wrap: wrap; gap: var(--s4) var(--s10); padding-top: var(--s5); border-top: 1px solid var(--rule); }',
   '.stats > div { display: grid; gap: 6px; } .stats b { font: 600 22px/1 var(--sans); color: var(--ink); }',
+  '.how { border: 1px solid var(--rule); border-radius: var(--r3); background: var(--sheet); padding: var(--s3) var(--s5); } .how summary { cursor: pointer; padding: 4px 0; } .how[open] summary { margin-bottom: var(--s4); }',
   '.blk { display: grid; gap: var(--s4); }',
   '.ledger { display: grid; gap: var(--s3); }',
   '.ch.hot { border-color: var(--rs-100); box-shadow: 0 0 3px var(--rs-50); }',
