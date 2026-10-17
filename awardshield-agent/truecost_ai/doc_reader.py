@@ -48,7 +48,7 @@ class Case(BaseModel):
     title: str = ""
     country: str
     currency: str
-    assets_root: Path = Path(".")
+    assets_root: str = "."  # a local folder (relative to the workspace root) or gs://bucket/prefix
     rfp_documents: list[Path]
     suppliers: list[Supplier]
 
@@ -71,8 +71,14 @@ class Case(BaseModel):
 
     def _files(self, entry: Path) -> list[Path]:
         """An entry is a file or a folder (every PDF in it); relative to
-        assets_root."""
-        p = ROOT / self.assets_root / entry  # an absolute entry overrides the root
+        assets_root. With a gs:// root (or AWARDSHIELD_ASSETS_URI) the PDFs are downloaded from
+        Cloud Storage into a local cache first (cloud.py)."""
+        from .cloud import ASSETS_URI, gcs_files, is_gcs
+
+        root = ASSETS_URI or self.assets_root
+        if is_gcs(root):
+            return gcs_files(root, entry.as_posix())
+        p = ROOT / root / entry  # an absolute entry overrides the root
         return sorted(p.glob("*.pdf")) if p.is_dir() else [p]
 
     @cached_property

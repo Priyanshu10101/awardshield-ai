@@ -18,6 +18,9 @@ place to switch things; an env var is for a one-off run. Another file: TRUECOST_
     max_question_rounds  TRUECOST_MAX_QUESTION_ROUNDS  runner: ask / re-link rounds after the full run
     max_parallel_bidders TRUECOST_MAX_PARALLEL_BIDDERS bidder branches running at once (more run in waves)
     vertex.use        TRUECOST_VERTEX            auto (Vertex when GOOGLE_CLOUD_PROJECT is set) | true | false
+    vertex.location   GOOGLE_CLOUD_LOCATION      Vertex AI region ("global" serves the Gemini 3 models)
+    firestore.*       AWARDSHIELD_FIRESTORE*     results in Firestore - see cloud.py
+    (manifest assets_root / AWARDSHIELD_ASSETS_URI = gs://... reads the PDFs from Cloud Storage - see cloud.py)
 """
 
 import json

@@ -26,6 +26,7 @@ from google.genai import types
 
 from .agent import bidder_key, build_root, make_orchestrator
 from .checkpoint import RESTORED
+from .cloud import pull_case, push_case
 from .recorder import Recorder
 from .doc_reader import Case, docs_hash, pack
 from .finalizer import _slug, make_finalizer
@@ -139,6 +140,7 @@ def checkpoint_dir(case: Case, fresh: bool):
 
 async def main(case_id: str, sets: list[str], answers_only: bool, fresh: bool = False) -> None:
     case = Case.load(case_id)
+    pull_case(case.rfq_id)  # Firestore -> disk: earlier results and buyer answers (no-op without Firestore)
     answers = load_answers(case)
     for item in sets:
         k, _, v = item.partition("=")
@@ -180,6 +182,7 @@ async def main(case_id: str, sets: list[str], answers_only: bool, fresh: bool = 
     out = OUTPUT_DIR / case.rfq_id
     (out / "report.json").write_text(json.dumps(st["report"], indent=1, ensure_ascii=False))
     print(f"\ncost model: {out / 'cost_model.json'}\nreport: {out / 'report.json'} ({time.time() - t0:.0f}s)")
+    push_case(case.rfq_id, case.title)  # disk -> Firestore (no-op without Firestore)
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="Run TrueCost for one tender.")

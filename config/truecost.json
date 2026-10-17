@@ -38,5 +38,11 @@
   "vertex": {
     "use": "auto",
     "location": "global"
+  },
+
+  "firestore": {
+    "use": "auto",
+    "database": "(default)",
+    "collection": "awardshield_cases"
   }
 }

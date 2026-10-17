@@ -2,7 +2,8 @@
 
     uvicorn api.app:app --port 8900        (from awardshield-agent/)
 
-Read-only over <output_dir>/<rfq_id>/ (written by TrueCost and RedSeal). The only computation is
+Read-only over <output_dir>/<rfq_id>/ (written by TrueCost and RedSeal; with Firestore on, the files
+are first pulled from Firestore - see truecost_ai/cloud.py). The only computation is
 TrueCost's engine.evaluate - deterministic, no model calls. A built UI (<workspace>/ui/dist/
 awardshield-ui/browser) is served at / when it exists.
 
@@ -28,6 +29,7 @@ from pydantic import BaseModel
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # awardshield-agent/
 
+from truecost_ai.cloud import pull_all  # noqa: E402
 from truecost_ai.doc_reader import Case  # noqa: E402
 from truecost_ai.engine import award, evaluate, load_case  # noqa: E402
 from truecost_ai.engine.indices import rate_for  # noqa: E402
@@ -46,6 +48,7 @@ def _json(path: Path):
 
 
 def _out(case_id: str) -> Path:
+    pull_all()  # Firestore -> disk (throttled; no-op without Firestore). Cloud Run starts with no results.
     out = OUTPUT_DIR / case_id
     if "/" in case_id or ".." in case_id or not (out / "cost_model.json").exists():
         raise HTTPException(404, f"no cost model for {case_id} - run TrueCost first")
@@ -107,6 +110,7 @@ def _year_one(result: dict) -> dict:
 
 @app.get("/api/cases")
 def cases():
+    pull_all()
     if not OUTPUT_DIR.exists():
         return []
     return [{"id": p.name, "title": _manifest(p.name).get("title", p.name),

@@ -18,6 +18,7 @@ from google.genai import types
 
 from truecost_ai.doc_reader import Case, pack
 from truecost_ai.recorder import Recorder
+from truecost_ai.cloud import pull_case, push_case
 from truecost_ai.settings import CASE, OUTPUT_DIR
 
 from .agent import build_root
@@ -27,6 +28,7 @@ APP, USER = "redseal", "buyer"
 
 async def run(case_id: str, output: str = "") -> dict:
     case = Case.load(case_id)
+    pull_case(output or case.rfq_id)  # TrueCost's results from Firestore when this disk has none
     runner = InMemoryRunner(agent=build_root(case_id, output), app_name=APP)
     session = await runner.session_service.create_session(app_name=APP, user_id=USER, state={})
     intro = types.Part(text=f"Tender {case.rfq_id}: {case.title}. Documents follow.")
@@ -46,6 +48,7 @@ async def run(case_id: str, output: str = "") -> dict:
     rec.save({"verdict": pack_["status"]})
     print_verdict(pack_)
     print(f"\nproof pack: {path} ({time.time() - t0:.0f}s)")
+    push_case(output or case.rfq_id, case.title)
     return pack_
 
 

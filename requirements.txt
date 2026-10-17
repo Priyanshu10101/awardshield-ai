@@ -1,0 +1,15 @@
+google-adk
+google-genai
+google-cloud-storage
+google-cloud-firestore
+pydantic
+requests
+pypdf
+openpyxl
+python-dotenv
+truststore
+numpy
+fastapi
+uvicorn[standard]
+reportlab
+pytest

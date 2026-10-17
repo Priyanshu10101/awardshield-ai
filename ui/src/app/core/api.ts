@@ -91,6 +91,7 @@ export class Api {
 export const CASE_ID = 'IN-CRUT-EBUS';
 export const BIDDER_COLOR: Record<string, string> = { GreenMetro: '#2F7D5B',
 MetroLink: '#2447D8', UrbanDrive: '#8A6F3E' };
-export const cr = (v: number, d = 2) => `₹${v.toLocaleString('en-IN', {
+// a missing figure (a bidder without a complete cost model) shows as '-' instead of breaking the page
+export const cr = (v: number | null | undefined, d = 2) => v == null || !isFinite(v) ? '-' : `₹${v.toLocaleString('en-IN', {
 minimumFractionDigits: d, maximumFractionDigits: d })} cr`;
-export const inr = (v: number) => `₹${v.toFixed(2)}`;
+export const inr = (v: number | null | undefined) => v == null || !isFinite(v) ? '-' : `₹${v.toFixed(2)}`;
