@@ -1,5 +1,7 @@
 # AwardShield
 
+**Live app: https://awardshield-gpxovcd6kq-el.a.run.app/** (Google Cloud Run)
+
 **The cheapest bid is not always the cheapest.** AwardShield checks public-tender awards:
 
 - **TrueCost** reads the tender and every bid (PDFs) with Gemini agents and builds each bidder's
@@ -13,8 +15,8 @@
 
 > The AI builds the inputs. Code decides. No model ever types a total, a ranking or the verdict.
 
-Built with **Gemini** and **Google ADK** (SequentialAgent / ParallelAgent agent trees), FastAPI and
-Angular.
+Built with **Gemini on Vertex AI** and **Google ADK** (SequentialAgent / ParallelAgent agent trees),
+FastAPI and Angular, deployed on **Google Cloud Run** with **Cloud Storage** and **Firestore**.
 
 ## The demo case: IN-CRUT-EBUS
 
@@ -33,6 +35,44 @@ paid per kilometre. Three synthetic bids respond to it (`generate_bids.py`).
    prevail. Re-run at ₹66: MetroLink wins (₹562.64 vs ₹575.17 cr). Verdict: **OVERTURNED (contested)**,
    because another tender clause says the lower amount counts. The buyer must decide before signing.
 
+## On Google Cloud
+
+```
+Buyer ──HTTPS──▶ Cloud Run service "awardshield"   Angular UI + FastAPI + engine (live what-ifs)
+                        ▲ results
+                    Firestore                      awardshield_cases/{case}: verdict, cost models,
+                        ▲ results                  proof pack, run recordings, buyer answers
+                 Cloud Run job "awardshield-run"   TrueCost AI, then RedSeal AI (Google ADK agents)
+                   │            │            │
+           Cloud Storage   Gemini on      official index publishers (India)
+           tender + bid    Vertex AI      Labour Bureau CPI-IW, Economic Adviser WPI
+           PDFs
+```
+
+- **Cloud Run service** (`awardshield`): the API and the built UI from one image ([Dockerfile](Dockerfile)).
+  It loads the results from Firestore, since a new instance starts with an empty disk.
+- **Cloud Run job** (`awardshield-run`): the AI pipeline ([deploy/run_pipeline.sh](deploy/run_pipeline.sh)).
+  The agents call Gemini on **Vertex AI** through the job's service account (no API key). They read the
+  PDFs from **Cloud Storage** and save every result to **Firestore**.
+- Without Google Cloud settings, everything runs on local files and a Gemini API key
+  ([truecost_ai/cloud.py](awardshield-agent/truecost_ai/cloud.py)).
+
+Deploy (from the repository root, after `gcloud auth login`):
+
+```bash
+PROJECT_ID=my-project ./deploy/deploy.sh
+```
+
+[deploy/deploy.sh](deploy/deploy.sh) enables the APIs, uploads `assets/` to a bucket, creates the Firestore
+database, a service account (Vertex AI user, Firestore user, bucket reader) and the Artifact Registry repo,
+builds the image and deploys the service and the job (region `asia-south1`, Vertex AI location `global`).
+
+Run the agents on Cloud Run (about 13 minutes for the demo case):
+
+```bash
+gcloud run jobs execute awardshield-run --region asia-south1 --wait
+```
+
 ## Repository layout
 
 ```
@@ -44,6 +84,8 @@ awardshield-agent/
     tests/            RedSeal tests
   api/app.py          FastAPI: case data, live engine what-ifs, serves the built UI
 ui/                   Angular 22 UI (decision brief, evidence, engine, challenges, run replay)
+deploy/               deploy.sh (Google Cloud setup + deploy), run_pipeline.sh (Cloud Run job)
+Dockerfile            one image for the Cloud Run service and job
 config/               truecost.json (models, retries, search), buyer_policy.json,
                       rfp_basis.json (buyer evaluation rules), known_sources.json (official index pages)
 project/IND/          case manifests (tender + bid PDFs per case)
@@ -53,7 +95,7 @@ generate_bids.py      generates the three synthetic bid PDFs
 ```
 
 The results in `output/IN-CRUT-EBUS/` are committed, so the engine, the API and the UI work without
-an API key. The tender and bid PDFs (`assets/`) are not in the repository.
+an API key. The tender and bid PDFs are in `assets/` (on Google Cloud they are read from Cloud Storage).
 
 ## Setup
 
@@ -65,12 +107,15 @@ pip install google-adk google-genai pydantic requests pypdf openpyxl python-dote
             numpy pytest fastapi uvicorn reportlab
 ```
 
-Create `.env` in the repository root with a Gemini API key (or set `GOOGLE_CLOUD_PROJECT` to use
-Vertex AI):
+Create `.env` in the repository root. For Gemini on Vertex AI (as on Cloud Run), set your project and
+log in once with `gcloud auth application-default login`:
 
 ```
-GOOGLE_API_KEY=...
+GOOGLE_CLOUD_PROJECT=my-project
+GOOGLE_CLOUD_LOCATION=global
 ```
+
+Or, without Google Cloud, a Gemini API key: `GOOGLE_API_KEY=...`
 
 Settings live in `config/truecost.json`: the model per step, retries, the web-search tool
 (`google_search`, `enterprise_web_search` or `none`), the default case. An environment variable
