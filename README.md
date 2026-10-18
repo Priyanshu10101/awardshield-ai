@@ -2,26 +2,40 @@
 
 **Live app: https://awardshield-gpxovcd6kq-el.a.run.app/** (Google Cloud Run)
 
-**The cheapest bid is not always the cheapest.** AwardShield checks public-tender awards:
+**The cheapest bid is not always the cheapest.** Evaluation committees compare multi-year supplier
+contracts by reading long tenders and every bid by hand, retyping rates into spreadsheets and checking
+price-adjustment formulas and fine print: days of work, where one missed clause can pick the wrong
+supplier. AwardShield does it with **two AI agents, TrueCost AI and RedSeal AI**:
 
-- **TrueCost** reads the tender and every bid (PDFs) with Gemini agents and builds each bidder's
+- **TrueCost AI** reads the tender and every bid (PDFs) with Gemini agents and builds each bidder's
   lifetime cost model: rates, price-adjustment formulas and official price indices, every value with
   a verbatim quote and page.
 - A **deterministic engine** (plain Python, no AI) projects every bid month by month over the whole
   contract, applies each bidder's own escalation formula and discounts every payment to today.
-- **RedSeal** then tries to *disprove* the award. AI challengers propose corrections; a deterministic
+- **RedSeal AI** then tries to *disprove* the result. AI challengers propose corrections; a deterministic
   prover verifies each quote in the documents, re-runs the engine and decides the verdict by fixed
   rules: `CERTIFIED_ROBUST`, `UNDERSTATED` or `OVERTURNED`.
 
 > The AI builds the inputs. Code decides. No model ever types a total, a ranking or the verdict.
 
-Built with **Gemini on Vertex AI** and **Google ADK** (SequentialAgent / ParallelAgent agent trees),
-FastAPI and Angular, deployed on **Google Cloud Run** with **Cloud Storage** and **Firestore**.
+Nothing in the prompts, schemas or engine is specific to buses, India or one tender: a case is a
+manifest of PDFs, and the agents extract whatever quantities, rates and index formulas the documents
+contain. The Odisha e-bus tender below is the test case.
+
+### Built with Google
+
+- **Gemini on Vertex AI**: 17 sub-agents (14 in TrueCost AI, 3 in RedSeal AI) read the PDFs natively and
+  answer in strict JSON schemas.
+- **Google ADK**: both agent trees (`SequentialAgent`, `ParallelAgent`, one pipeline per bidder in
+  parallel), with callbacks that keep each bidder's documents away from the other bidders' agents.
+- **Cloud Run**: a service (UI, API, live what-if engine) and a job (the agent pipeline).
+- **Cloud Storage** holds the tender and bid PDFs; **Firestore** holds the results and buyer answers.
 
 ## The demo case: IN-CRUT-EBUS
 
-A real public tender (CRUT 1376, Odisha, India): operation of 200 electric buses for 10 + 2 years,
-paid per kilometre. Three synthetic bids respond to it (`generate_bids.py`).
+A real public tender (CRUT 1376, Odisha, India, 108 pages): operation of 200 electric buses for
+10 + 2 years, paid per kilometre, with a price-adjustment clause and conflicting rules on amounts in
+figures and words. Three synthetic bids respond to it (`generate_bids.py`, see *Scope and assumptions*).
 
 | | GreenMetro | MetroLink | UrbanDrive |
 |---|---|---|---|
@@ -30,10 +44,32 @@ paid per kilometre. Three synthetic bids respond to it (`generate_bids.py`).
 | 12-year cost, today's money | **₹549.02 cr** | ₹562.64 cr | ₹575.23 cr |
 
 1. **On paper** MetroLink is the cheapest.
-2. **TrueCost + engine:** over 12 years MetroLink's price rises fastest, so GreenMetro is ₹13.61 cr cheaper.
-3. **RedSeal:** GreenMetro wrote ₹63.00 in figures but "Sixty Six" in words, and the tender says words
+2. **TrueCost AI + engine:** over 12 years MetroLink's price rises fastest, so GreenMetro is ₹13.61 cr cheaper.
+3. **RedSeal AI:** GreenMetro wrote ₹63.00 in figures but "Sixty Six" in words, and the tender says words
    prevail. Re-run at ₹66: MetroLink wins (₹562.64 vs ₹575.17 cr). Verdict: **OVERTURNED (contested)**,
    because another tender clause says the lower amount counts. The buyer must decide before signing.
+
+## Scope and assumptions
+
+- **Award rule vs lifetime cost.** This tender formally awards on the lowest *Aggregate Bus Operation
+  Cost for Year One* (RFP s.7 iii); on that metric MetroLink is lowest (₹79.92 cr vs GreenMetro ₹81.95 cr).
+  AwardShield adds the 12-year lifetime cost as decision support and RedSeal AI reports when the two
+  disagree (`CH_AWARD_METRIC` in the proof pack). `OVERTURNED` refers to the lifetime ranking: it tells
+  the committee that the tender's own rules and its long-term cost point to different suppliers.
+- **Synthetic bids.** Real commercial bids are confidential, so the three bids are generated from public
+  data (CAG Delhi DTC audit and CESL award rates, LBNL/WRI India e-bus costs) with known, deliberate
+  traps. That gives a ground truth to test the agents against: they must find the traps themselves.
+- **Recorded run.** A full run takes about 13 minutes (TrueCost AI 12.4 min, RedSeal AI 43 s), so the UI
+  replays a recorded real run instead of making visitors wait; new runs execute as the Cloud Run job.
+- **Cost model.** Price revisions follow each bid's formula and timing (every 6 months from month 6);
+  the 4 % change trigger and re-basing on the previous revision date are not modelled. Future index
+  growth is projected from recent official data. The discount rate and index window are buyer policy
+  settings, and the state electricity tariff uses the national WPI electricity series as a proxy
+  (recorded in the output).
+- **Strict evidence.** The prover accepts a quote only if its words appear in the PDF text in order. By
+  design: a paraphrase or an invented clause never counts as evidence, even if it sounds right.
+- **Public demo.** The live app has no login because the bids are synthetic; real tenders would need
+  access control on the Cloud Run service.
 
 ## On Google Cloud
 
@@ -103,8 +139,7 @@ Python 3.12+ and, for the UI, Node.js 24.
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
-pip install google-adk google-genai pydantic requests pypdf openpyxl python-dotenv truststore \
-            numpy pytest fastapi uvicorn reportlab
+pip install -r requirements.txt
 ```
 
 Create `.env` in the repository root. For Gemini on Vertex AI (as on Cloud Run), set your project and

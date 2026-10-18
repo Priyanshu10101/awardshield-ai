@@ -4,6 +4,9 @@ google-cloud-storage
 google-cloud-firestore
 pydantic
 requests
+beautifulsoup4
+lxml
+xlrd
 pypdf
 openpyxl
 python-dotenv
